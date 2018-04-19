@@ -1,0 +1,2 @@
+# activitymon
+The ActivityMon Specification
