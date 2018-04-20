@@ -1,4 +1,4 @@
-#  ActivityMon Core  #
+#  ActivityMon Core
 Draft Specification
 
  - - -

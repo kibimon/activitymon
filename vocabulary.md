@@ -1,4 +1,4 @@
-#  Mon Vocabulary  #
+#  Mon Vocabulary
 Draft Specification
 
  - - -
@@ -118,7 +118,8 @@ Processors **MUST** ignore any objects with more than one Mon Actor Type assigne
 
 + URI: `tag:marrus.xyz,2018:activitymon::Mon`
 + Extends: `mon:Species`
-+ Disjoint With: `mon:Route` | `mon:Trainer`
++ Disjoint With:
+    + `mon:Route` | `mon:Trainer`
 + Properties:
     + `mon:effect` | `mon:exp` | `mon:health` | `mon:learned` | `mon:level` | `mon:statExp` | `mon:statInd`
     + Inherits all properties from `mon:Species`
@@ -169,7 +170,8 @@ The values of the `as:generator` property **MUST NOT** change over time.
 
 + URI: `tag:marrus.xyz,2018:activitymon::Route`
 + Extends: `as:Object`
-+ Disjoint With: `mon:Mon` | `mon:Trainer`
++ Disjoint With:
+    + `mon:Mon` | `mon:Trainer`
 + Properties:
     + `mon:dex` | `mon:routes`
     + Inherits all properties from `as:Object`
@@ -191,7 +193,8 @@ Processors are **NOT REQUIRED** to recognize `mon:Route`s as Actors.
 
 + URI: `tag:marrus.xyz,2018:activitymon::Trainer`
 + Extends: `as:Object`
-+ Disjoint With: `mon:Mon` | `mon:Route`
++ Disjoint With:
+    + `mon:Mon` | `mon:Route`
 + Properties:
     + `mon:mon`
     + Inherits all properties from `as:Object`
