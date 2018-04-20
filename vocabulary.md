@@ -739,9 +739,9 @@ Indicates that a `mon:Technique` depends upon a given `mon:Stat`.
  +  Initial specification.
 
 
-[Activity Vocabulary]: https://www.w3.org/TR/activitystreams-vocabulary/ (Activity Vocabulary)
-[ActivityMon]:         https://kibimon.github.io/activitymon/            (ActivityMon)
-[ActivityMon Core]:    https://kibimon.github.io/activitymon/core/       (ActivityMon Core)
-[ActivityStreams 2.0]: https://www.w3.org/TR/activitystreams-core/       (Activity Streams 2.0)
-[Mon Vocabulary]:      https://kibimon.github.io/activitymon/vocabulary/ (Mon Vocabulary)
-[RFC2119]:             https://tools.ietf.org/html/rfc2119               (Key words for use in RFCs to Indicate Requirement Levels)
+[Activity Vocabulary]: <https://www.w3.org/TR/activitystreams-vocabulary/> "Activity Vocabulary"
+[ActivityMon]:         <https://kibimon.github.io/activitymon/>            "ActivityMon"
+[ActivityMon Core]:    <https://kibimon.github.io/activitymon/core/>       "ActivityMon Core"
+[ActivityStreams 2.0]: <https://www.w3.org/TR/activitystreams-core/>       "Activity Streams 2.0"
+[Mon Vocabulary]:      <https://kibimon.github.io/activitymon/vocabulary/> "Mon Vocabulary"
+[RFC2119]:             <https://tools.ietf.org/html/rfc2119>               "Key words for use in RFCs to Indicate Requirement Levels"

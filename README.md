@@ -38,8 +38,8 @@ The following specifications are **OPTIONAL** for conforming ActivityMon support
 + *TBD*
 
 
-[Activity Vocabulary]: https://www.w3.org/TR/activitystreams-vocabulary/ (Activity Vocabulary)
-[ActivityMon Core]:    https://kibimon.github.io/activitymon/core/       (ActivityMon Core)
-[ActivityPub]:         https://www.w3.org/TR/activitypub/                (ActivityPub)
-[Mon Vocabulary]:      https://kibimon.github.io/activitymon/vocabulary/ (Mon Vocabulary)
-[RFC2119]:             https://tools.ietf.org/html/rfc2119               (Key words for use in RFCs to Indicate Requirement Levels)
+[Activity Vocabulary]: <https://www.w3.org/TR/activitystreams-vocabulary/> "Activity Vocabulary"
+[ActivityMon Core]:    <https://kibimon.github.io/activitymon/core/>       "ActivityMon Core"
+[ActivityPub]:         <https://www.w3.org/TR/activitypub/>                "ActivityPub"
+[Mon Vocabulary]:      <https://kibimon.github.io/activitymon/vocabulary/> "Mon Vocabulary"
+[RFC2119]:             <https://tools.ietf.org/html/rfc2119>               "Key words for use in RFCs to Indicate Requirement Levels"
