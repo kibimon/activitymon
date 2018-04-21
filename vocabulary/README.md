@@ -679,7 +679,7 @@ Indicates the `rp:Stat`s of an `rp:Quantified` object.
 
 Roleplaying typically depends on objects being able to perform actions, which may be broadly categorized into *techniques*.
 Often, not every technique is able to be used by every object; rather, techniques must first be *learned*.
-In the Roleplaying Vocabulary, objects which can learn techniques are represented with `rp:Performer`.
+In the Roleplaying Vocabulary, objects which can learn techniques are represented with `rp:Performer`s, who may be instances of `rp:Role`s.
 Learned techniques are represented with `rp:Learned`, and technique classes are represented with `rp:Technique`.
 
 ###  12.1 The `rp:Learnable` Object
@@ -694,7 +694,7 @@ Describes a technique which may be learned by an object.
 The type of technique **SHOULD** be given via the `rp:class` property, which **MUST** point to a `rp:Technique`.
 
 `rp:Learnable` objects **MUST NOT** have more than one `rp:class`.
-Processors **MUST** ignore all values of `rp:class` property if there are more than one, or if they do not point to an `rp:Technique` object.
+Processors **MUST** ignore all values of `rp:class` if there are more than one, or if they do not point to a `rp:Technique` object.
 
 `rp:Learnable` objects are `rp:Scoped`.
 The `rp:maxLevel` and `rp:minLevel` properties **MAY** be used to indicate the range of levels during which a techique can be learned.
@@ -712,19 +712,47 @@ Describes a learned technique, which is a type of action performable by an objec
 The type of technique **SHOULD** be given via the `rp:class` property, which **MUST** point to a `rp:Technique`.
 
 `rp:Learned` objects **MUST NOT** have more than one `rp:class`.
-Processors **MUST** ignore all values of `rp:class` property if there are more than one, or if they do not point to an `rp:Technique` object.
+Processors **MUST** ignore all values of `rp:class` if there are more than one, or if they do not point to a `rp:Technique` object.
 
 `rp:Learned` objects are `rp:Perishable`.
 The `rp:health` property **MAY** be used to indicate how many times the learned technique may be used.
 `rp:Learned` objects are **NOT REQUIRED** to make use of the `rp:health` propeprty.
 
-###  12.3 The `rp:Technique` Object
+###  12.3 The `rp:Performer` Object
+
++ URI: `tag:marrus.xyz,2018:roleplaying::Performer`
++ Extends: `rp:Instance`
++ Properties:
+    + `rp:learned` | `rp:learnset`
+    + Inherits all properties from `rp:Instance`.
+
+Describes an object which can learn techniques.
+
+The type of technique **SHOULD** be given via the `rp:class` property, which **MUST** point to a `rp:Role`.
+Processors **MUST** ignore all values of `rp:class` which do not point to a `rp:Role` object.
+
+When processing a `rp:Performer` with one or more `rp:Role`s associated via the `rp:class` property, processors **SHOULD** treat any values for the `rp:learnset` property on the `rp:Role`(s) as though they had also been specified on the `rp:Performer`, *in addition to* any values specified on the `rp:Performer` directly.
+
+###  12.4 The `rp:Role` Object
+
++ URI: `tag:marrus.xyz,2018:roleplaying::Role`
++ Extends: `rp:Class`
++ Properties:
+    + `rp:learnset`
+    + Inherits all properties from `rp:Class`.
+
+Describes a role, which is a `rp:Class` which has a `rp:learnset`.
+
+The `as:name` property **SHOULD** be used to provide a name for the `rp:Role`.
+A short description of the `rp:Role` **MAY** be provided via the `as:summary` property.
+A longer description of the `rp:Role` **MAY** be provided via the `as:content` property.
+
+###  12.5 The `rp:Technique` Object
 
 + URI: `tag:marrus.xyz,2018:roleplaying::Technique`
 + Extends:
     + `rp:Action` | `rp:Class` | `rp:Qualified`
-+ Properties:
-    + Inherits all properties from `rp:Action` and `rp:Qualified`.
++ Properties: Inherits all properties from `rp:Action`, `rp:Class`, and `rp:Qualified`.
 
 Describes a variety of technique.
 
@@ -732,7 +760,41 @@ The `as:name` property **SHOULD** be used to provide a name for the `rp:Techniqu
 A short description of the `rp:Technique` **MAY** be provided via the `as:summary` property.
 A longer description of the `rp:Technique` **MAY** be provided via the `as:content` property.
 
+###  12.6 The `rp:learned` Property
+
++ URI: `tag:marrus.xyz,2018:roleplaying::learned`
++ Domain: `rp:Performer`
++ Range:
+    + `as:Collection` | `as:OrderedCollection`
++ Functional: True
+
+Provides a `as:OrderedCollection` or `as:Collection` of `rp:Learned` objects which a `rp:Performer` is able to perform.
+Processors **MAY** set limits on the number of `rp:Learned` objects which will be associated with a given `rp:Performer`.
+
+The existence and ordering of items in the provided collection **MAY** change over time.
+`as:Tombstone`s **SHOULD NOT** be used to mark removed items.
+
+An object **MUST NOT** have more than one value for its `rp:learned` property.
+Upon encountering an object with more than one `rp:learned` value, processors **MAY**, at their discretion, ignore some or all values, or somehow attempt to combine the collections into one.
+
+###  12.7 The `rp:learnset` Property
+
++ URI: `tag:marrus.xyz,2018:roleplaying::learnset`
++ Domain:
+    + `rp:Performer` | `rp:Role`
++ Range: `rp:Learnable`
+
+Indicates the potentially `mon:Learnable` techniques for a given `rp:Performer` or `rp:Instance` of an `rp:Role`.
+For `rp:Performer`s, this property is *additive*:
+Processors **SHOULD** consider both the `rp:Learnable` objects specified on a `rp:Performer`'s own `rp:learnset` property and those declared in that of its associated `rp:Role`(s), where applicable.
+
 ##  13. Changelog  ##
+
+ >  This section is non-normative.
+
+#####  2018-04-20 (2).
+
+ +  Added the missing `rp:Performer` and `rp:Role` objects and the `rp:learnset` and `rp:learned` properties.
 
 #####  2018-04-20.
 
