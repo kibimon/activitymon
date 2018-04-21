@@ -718,7 +718,7 @@ Processors **MUST** ignore all values of `rp:class` property if there are more t
 The `rp:health` property **MAY** be used to indicate how many times the learned technique may be used.
 `rp:Learned` objects are **NOT REQUIRED** to make use of the `rp:health` propeprty.
 
-###  7.3 The `rp:Technique` Object
+###  12.3 The `rp:Technique` Object
 
 + URI: `tag:marrus.xyz,2018:roleplaying::Technique`
 + Extends:
@@ -732,7 +732,7 @@ The `as:name` property **SHOULD** be used to provide a name for the `rp:Techniqu
 A short description of the `rp:Technique` **MAY** be provided via the `as:summary` property.
 A longer description of the `rp:Technique` **MAY** be provided via the `as:content` property.
 
-##  8. Changelog  ##
+##  13. Changelog  ##
 
 #####  2018-04-20.
 
