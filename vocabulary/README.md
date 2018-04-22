@@ -205,12 +205,14 @@ Classes **MAY** be used to group together viable combinations so that they can b
 + URI: `tag:marrus.xyz,2018:roleplaying::Class`
 + Extends: `as:Object`
 + Properties:
-    + `rp:becomes`
+    + `rp:becomes` | `rp:maxHealth`
     + Inherits all properties from `as:Object`
 
 Represents a class.
 
 The `rp:becomes` property **MAY** be used to mark potential `rp:ClassChange`s from this class.
+
+The `rp:maxHealth` property **MAY** be used to indicate the maximum health of instances.
 
 The `as:name` property **SHOULD** be used to provide a name for the `rp:Class`.
 A short description of the `rp:Class` **MAY** be provided via the `as:summary` property.
@@ -452,11 +454,13 @@ Upon encountering an object with more than one `rp:health` value, processors **M
 ###  8.3 The `rp:maxHealth` Property
 
 + URI: `tag:marrus.xyz,2018:roleplaying::maxHealth`
-+ Domain: `rp:Perishable`
++ Domain:
+    + `rp:Class` | `rp:Perishable`
 + Range: `xsd:nonNegativeInteger`
 + Functional: True
 
 Indicates a maximum value for the `rp:health` property under normal circumstances.
+When assigned to a `rp:Class` which is not also `rp:Perishable`, it indicates the maximum value for the class's instances.
 
 An object **MUST NOT** have more than one value for its `mon:maxHealth` property.
 Upon encountering an object with more than one `mon:maxHealth` value, processors **MUST** ignore all but the smallest one.
@@ -663,7 +667,7 @@ Describes a stat.
 The type of the stat **SHOULD** be given via the `rp:class` property, which **MUST** point to an `rp:Attribute`.
 
 `rp:Stat`s **MUST NOT** have more than one `rp:class`.
-Processors **MUST** ignore all values of `rp:class` property if there are more than one, or if they do not point to an `rp:Attribute` object.
+Processors **MUST** ignore all values of `rp:class` if there are more than one, or if they do not point to an `rp:Attribute` object.
 
 The value of the `rp:class` property of a stat **SHOULD NOT** change over time.
 
@@ -791,6 +795,10 @@ Processors **SHOULD** consider both the `rp:Learnable` objects specified on a `r
 ##  13. Changelog  ##
 
  >  This section is non-normative.
+
+#####  2018-04-21.
+
+ +  Allowed the `rp:maxHealth` property on `rp:Class` objects.
 
 #####  2018-04-20 (2).
 
