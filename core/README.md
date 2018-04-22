@@ -98,7 +98,7 @@ To clone a `rp:Class`, a server **SHOULD** take the following steps:
 1.  If the original object has a `as:source` property whose value has a valid `@id`, attempt to resolve the `@id`.
     If the `@id` resolves to a valid object of a recognized type which is, or extends, `rp:Class`, abort and re-run these steps using this resolved object instead.
 
-2.  Run the steps for cloning an ordinary object on the original object, with the following caviats:
+2.  Run the steps for cloning an ordinary object on the original object, with the following caveats:
 
     1.  If the server has cloned a class with this `@id` before, then the new clone **SHOULD** replace the old one and share the same `@id`.
 
@@ -116,7 +116,7 @@ To clone a `rp:Class`, a server **SHOULD** take the following steps:
 
 ####  3.1.3  Cloning `mon:Mon` objects
 
-The steps for cloning a `mon:Mon` object are the same as the steps for cloning an ordinary object, with the caviat that all Actor-specific properties or collections, or links thereof, **MUST** be generated anew (and **MUST NOT** merely be copied over), and the resulting object **MUST** have a valid, non-null `@id`.
+The steps for cloning a `mon:Mon` object are the same as the steps for cloning an ordinary object, with the caveat that all Actor-specific properties or collections, or links thereof, **MUST** be generated anew (and **MUST NOT** merely be copied over), and the resulting object **MUST** have a valid, non-null `@id`.
 
 ##  4. Client to Server Interactions  ##
 

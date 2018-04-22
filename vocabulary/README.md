@@ -260,7 +260,8 @@ Most of the properties on the `mon:Species` object are not directly inherited by
 ###  6.1 The `mon:dex` Property
 
 + URI: `tag:marrus.xyz,2018:activitymon::dex`
-+ Domain: `mon:Region` | `mon:Route`
++ Domain:
+    + `mon:Region` | `mon:Route`
 + Range:
     + `as:Collection` | `as:OrderedCollection`
 + Functional: True
@@ -290,7 +291,8 @@ Upon encountering an object with more than one `mon:mon` value, processors **MUS
 ###  6.3 The `mon:routes` Property
 
 + URI: `tag:marrus.xyz,2018:activitymon::routes`
-+ Domain: `mon:Region` | `mon:Route`
++ Domain:
+    + `mon:Region` | `mon:Route`
 + Range:
     + `as:Collection` | `as:OrderedCollection`
 + Functional: True
