@@ -1,0 +1,385 @@
+#  Mon Vocabulary
+Draft Specification
+
+ - - -
+
+##  Abstract  ##
+
+This specification describes the Mon Vocabulary.
+The Mon Vocabulary is an extension of the [Activity Vocabulary][] vocabulary inteded for use in the context of the [ActivityStreams 2.0][] format and provides a foundational vocabulary for representing relationships between trainers, routes, and mon.
+
+ - - -
+
+##  1. Introduction  ##
+
+A *mon* is an imaginary creature or object which may be collected, traded, and interacted with.
+Mon frequently have individual properties, known as *stats*, and are capable of particular actions, known as *techniques*.
+The collectors, or *owners*, of mon are known as *trainers*.
+This specification defines a common vocabulary for describing mon and trainers, intended for use in the context of [ActivityStreams 2.0][] documents.
+
+###  1.1 Relationship to Other Specifications
+
+This document is part of the [ActivityMon][] set of specifications.
+Any process claiming to implement ActivityMon must conform to this specification.
+
+This document builds upon the [Activity Vocabulary][] and is intended for use in an [ActivityStreams 2.0][] context.
+
+###  1.2 Notational Conventions
+
+[Activity Vocabulary][] types are indicated with the prefix `as:`, which represents the `https://www.w3.org/ns/activitystreams#` base URI.
+Note that in [ActivityStreams 2.0][] documents, this prefix **MAY** be omitted.
+
+Roleplaying Vocabulary types are indicated with the prefix `rp:`, which represents the `tag:marrus.xyz,2018:roleplaying::` base URI.
+Note that in [ActivityStreams 2.0][] documents, this prefix **MUST** be declared in the `@context` of the document to be valid, and a different prefix **MAY** be used instead.
+
+Mon Vocabulary types are indicated with the prefix `mon:`, which represents the `tag:marrus.xyz,2018:activitymon::` base URI.
+Note that in [ActivityStreams 2.0][] documents, this prefix **MUST** be declared in the `@context` of the document to be valid, and a different prefix **MAY** be used instead.
+
+ >  As this is still a draft specification, the above URIs may change at some point in the future.
+
+##  2. Conformance  ##
+
+All sections explicitly marked as non-normative, as well as any diagrams, exmaples, or notes in this specification, are non-normative.
+Everything else in this specification is normative.
+
+The Mon Vocabulary is an extension of the [Roleplaying Vocabulary][], which is in turn an extension of the [Activity Vocabulary][].
+Implementations of the Mon Vocabulary **MUST** conform to the requirements set forward in these specifications.
+
+This specification defines three conformance classes:
+
+ +  *Conforming documents* are documents which make use of the vocabulary defined in this specification, and conform to the requirements for documents.
+    [ActivityStreams 2.0][] documents **MUST** use this vocabulary in the manner specified by that specification.
+    The mechanisms by which this vocabulary might be used in another document type are not specified here.
+
+ +  *Conforming authors* are processes which produce conforming documents.
+    No additional requirements for authors are made.
+
+ +  *Conforming processors* are processes which process conforming documents.
+    A processor is conforming if it conforms to the requirements for processors defined in this specification.
+
+Except where explicitly stated, conformance requirements are for documents, not processors.
+
+The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **NOT RECOMMENDED**, **MAY**, and **OPTIONAL** are to be interpreted as described in [RFC2119][].
+
+##  3. Mon Activity Types  ##
+
+As with the [Activity Vocabulary][], all Mon Activity Types inherit the properties of the base `as:Activity` type.
+Many of these are subtypes of a more specific Activity Type; for example, `as:Offer`.
+
+###  3.1 The `mon:Capture` Activity
+
++ URI: `tag:marrus.xyz,2018:activitymon::Capture`
++ Extends: `as:Offer`
++ Properties: Inherits all properties from `as:Offer`
+
+A specialization of `as:Offer` in which the `as:actor` is attempting to claim ownership of the `as:object`.
+The `as:instrument` property **MAY** be used to indicate mechanisms of capture.
+
+###  3.2 The `mon:Search` Activity
+
++ URI: `tag:marrus.xyz,2018:activitymon::Search`
++ Extends: `as:Offer`
++ Properties: Inherits all properties from `as:Offer`
+
+A specialization of `as:Offer` in which the `as:actor` is searching the `as:object`.
+The `as:instrument` property **MAY** be used to indicate objects used when searching.
+The `as:target` property **MAY** be used to indicate a desired object.
+
+##  4. Mon Actor Types  ##
+
+In the [Activity Vocabulary][], Actors are Objects which are capable of performing an Activity.
+Processors **MUST** recognize objects of the following types as Actors:
+
++ `mon:Mon`
++ `mon:Trainer`
+
+Processors **MAY** automatically assign the type `mon:Trainer` to `as:Person` objects which are not `mon:Mon`.
+
+The Mon Actor Types defined in this section are mutually exclusive; objects **MUST NOT** have more than one of these types.
+Actors **MAY**, however, have other types not defined by this specification.
+Processors **SHOULD** ignore any unknown types assigned to objects who have types defined in this section.
+
+Processors **MUST** ignore any objects with more than one Mon Actor Type assigned.
+
+###  4.1 The `mon:Mon` Actor
+
++ URI: `tag:marrus.xyz,2018:activitymon::Mon`
++ Extends:
+    + `rp:Effectual` | `rp:Perishable` | `rp:Performer` | `rp:Qualified` | `rp:Quantified` | `rp:Ranked`
++ Disjoint With:
+    + `mon:Route` | `mon:Trainer`
++ Properties: Inherits all properties from `rp:Effectual`, `rp:Perishable`, `rp:Performer`, `rp:Qualified`, `rp:Quantified`, and `rp:Ranked`
+
+Describes a mon.
+`mon:Mon` actors **MUST** also be assigned the `as:Person` type.
+
+The `rp:class` property **MAY** be used to specify the species of a `mon:Mon`, which **MUST** be a `mon:Species`.
+`mon:Mon` **MUST NOT** have more than one `rp:class`.
+Processors **MUST** ignore all values of `rp:class` if there are more than one, or if they do not point to a `mon:Species` object.
+
+To ensure that the `mon:Species` is always able to be dereferenced, `rp:class` links **SHOULD** point to files on the same server as the associated `mon:Mon`.
+Processors **MAY** refuse to fetch `rp:class` links which do not share an origin with a given `mon:Mon`.
+
+When processing a `mon:Mon` with an associated `mon:Species`, processors **SHOULD** use values from the associated `mon:Species` if the following properties are not specified on the `mon:Mon`:
+
++ `as:content`
++ `as:icon`
++ `as:image`
++ `as:name`
++ `as:summary`
++ `rp:growth`
+
+If one or more `rp:Affinity` objects are provided via the `rp:quality` property on an associated `mon:Species`, but *no* `rp:Affinity` is provided via the same property on a given `mon:Mon`, processors **SHOULD** treat the `mon:Mon` as though those objects had been provided on its `rp:quality` property as well.
+
+A `mon:Mon` has an *owner* if there is an `mon:Trainer` object provided, or linked to, via the `as:attributedTo` property.
+Each `mon:Mon` **MUST NOT** have more than one owner.
+Upon encountering a `mon:Mon` with multiple owners, processors **MUST** ignore all but one.
+
+`mon:Mon` who are owned by a `mon:Trainer` **SHOULD** exist on the same server as that `mon:Trainer`.
+The owner of a `mon:Mon` **MUST NOT** change over time.
+
+Information regarding the capture of a `mon:Mon` **MAY** be provided via the `as:generator` property, including:
+
++ A `mon:Item` used in the capture
++ A `mon:Region` and/or `mon:Route` where the capture took place
++ A `mon:Trainer` responsible for the capture
+
+These may be provided directly or as links.
+
+The `as:generator` property of a `mon:Mon` **MUST NOT** have, or link to, more than one of the above objects which share the same type.
+Upon encountering a `mon:Mon` with multiple such objects present or linked to as `as:generator` values, processors **MUST** ignore all but one.
+The values of the `as:generator` property **MUST NOT** change over time.
+
+`mon:Item`s **MAY** be attached to a `mon:Mon` (*held*) via the `as:attachment` property.
+
+###  4.2 The `mon:Route` Actor
+
++ URI: `tag:marrus.xyz,2018:activitymon::Route`
++ Extends: `as:Object`
++ Disjoint With:
+    + `mon:Mon` | `mon:Trainer`
++ Properties:
+    + `mon:dex` | `mon:routes`
+    + Inherits all properties from `as:Object`
+
+Describes a location or other construct, real or imagined, from which mon may be found.
+`mon:Route`s which correspond to real-world locations **MUST** also be assigned the `as:Place` type.
+
+An `as:name` **SHOULD** be provided for all `mon:Route`s, naming the route.
+A tagline for the `mon:Route` **MAY** be provided via the `as:summary` property.
+A longer description of the `mon:Route` **MAY** be provided via the `as:content` property.
+
+The `mon:Region` of a `mon:Route` **MAY** be provided, or linked to, using the `as:assignedTo` property.
+Each `mon:Route` **MUST NOT** have more than one associated `mon:Region`.
+Upon encountering a `mon:Route` with multiple associated `mon:Region`s, processors **MUST** ignore *all* of them, and treat the `mon:Route` as though no `mon:Region` was specified.
+
+Recognizing `mon:Route`s as Actors is **OPTIONAL** for processors.
+
+###  4.3 The `mon:Trainer` Actor
+
++ URI: `tag:marrus.xyz,2018:activitymon::Trainer`
++ Extends: `as:Object`
++ Disjoint With:
+    + `mon:Mon` | `mon:Route`
++ Properties:
+    + `mon:mon`
+    + Inherits all properties from `as:Object`
+
+Describes a potential owner, or *trainer*, of mon.
+`mon:Trainer` actors **MUST** also be assigned the `as:Person` type.
+Only `mon:Trainer`s are able to own mon.
+
+##  5. Mon Object Types  ##
+
+In addition to the Mon Activity Types and the Mon Actor Types, the Mon Vocabulary includes the following Mon Object Types:
+
+###  5.1 The `mon:Item` Object
+
++ URI: `tag:marrus.xyz,2018:activitymon::Item`
++ Extends:
+    + `rp:Action` | `rp:Perishable`
++ Properties:
+    + Inherits all properties from `as:Object`
+
+Describes an item of some sort.
+
+An `as:name` **SHOULD** be provided for all `mon:Item`s.
+A short description or explanation of the `mon:Item` **MAY** be provided via the `as:summary` property.
+A longer description of the `mon:Item` **MAY** be provided via the `as:content` property.
+
+###  5.2 The `mon:Region` Object
+
++ URI: `tag:marrus.xyz,2018:activitymon::Region`
++ Extends: `as:Object`
++ Properties:
+    + `mon:dex` | `mon:routes`
+    + Inherits all properties from `as:Object`
+
+Describes a region.
+Regions are objects which **MAY** be used to discover different `mon:Species` or `mon:Routes`.
+`mon:Region`s which correspond to real-world locations **MUST** also be assigned the `as:Place` type.
+
+An `as:name` **SHOULD** be provided for all `Region`s.
+A tagline for the `mon:Region` **MAY** be provided via the `as:summary` property.
+A longer description of the `mon:Region` **MAY** be provided via the `as:content` property.
+
+The `mon:dex` property, if present, **MUST** contain an `as:OrderedCollection` of `mon:Species` objects.
+New `mon:Species` objects **SHOULD** only be added to the *end* of this collection, and `as:Tombstone` objects **SHOULD** be used to mark any `mon:Species` removed from a `mon:dex` collection.
+The ordering of existing items in a `mon:dex` collection **SHOULD NOT** change over time.
+
+The `mon:routes` property, if present, **MUST** contain an `as:OrderedCollection` of `mon:Route` objects.
+New `mon:Route` objects **SHOULD** only be added to the *end* of this collection, and `as:Tombstone` objects **SHOULD** be used to mark any `mon:Route` removed from a `mon:routes` collection.
+The ordering of existing items in a `mon:routes` collection **SHOULD NOT** change over time.
+
+All of the objects in the `as:OrderedCollection`s described above **SHOULD** be located on the same server as the given `mon:Region`.
+The `mon:Species` and `mon:Route`s discoverable through these collections **SHOULD** reference this `mon:Region` in their `as:assignedTo`.
+
+###  5.3 The `mon:Species` Object
+
++ URI: `tag:marrus.xyz,2018:activitymon::Species`
++ Extends:
+    + `rp:Qualified` | `rp:Quantified` | `rp:Role`
++ Properties: Inherits all properties from `rp:Qualified`, `rp:Quantified`, and `rp:Role`
+
+Describes a variety, or *species*, of mon.
+
+An `as:name` **SHOULD** be provided for all `mon:Species`.
+A tagline, or short description, for the `mon:Species` **MAY** be provided via the `as:summary` property.
+A longer description of the `mon:Species` **MAY** be provided via the `as:content` property.
+
+The `mon:Region` of a `mon:Species` **MAY** be provided, or linked to, using the `as:assignedTo` property.
+Each `mon:Species` **MUST NOT** have more than one associated `mon:Region` property.
+Upon encountering a `mon:Species` with multiple associated `mon:Region`s, processors **MUST** ignore *all* of them, and treat the `mon:Species` as though no `mon:Region` was specified.
+
+If `mon:Mon` of a particular `mon:Species` are known to exist on a particular `mon:Route`, that `mon:Route` may be provided, or linked to, using the `as:location` property.
+
+Most of the properties on the `mon:Species` object are not directly inherited by associated `mon:Mon`, but **MAY** be used when generating associated `Mon` values, in an implementation-defined manner.
+
+##  6. Properties  ##
+
+###  6.1 The `mon:dex` Property
+
++ URI: `tag:marrus.xyz,2018:activitymon::dex`
++ Domain: `mon:Region` | `mon:Route`
++ Range:
+    + `as:Collection` | `as:OrderedCollection`
++ Functional: True
+
+Provides an `as:OrderedCollection` or `as:Collection` of `mon:Species` which might be found at a given location.
+For `mon:Region`s, this **MUST** be an `as:OrderedCollection`.
+
+An object **MUST NOT** have more than one value for its `mon:dex` property.
+Upon encountering an object with more than one `mon:dex` value, processors **MUST** ignore all values; that is, treat the object as if *no* `mon:dex` property had been defined.
+
+###  6.2 The `mon:mon` Property
+
++ URI: `tag:marrus.xyz,2018:activitymon::mon`
++ Domain: `mon:Trainer`
++ Range: `as:Link`
++ Functional: True
+
+References an `as:OrderedCollection` or `as:Collection` of the `mon:Mon` for which a `mon:Trainer` is an owner.
+All of the `mon:Mon` in the referenced collection **MUST** be owned by that `mon:Trainer`.
+
+The ordering of items within the `as:OrderedCollection` **MAY** change over time.
+`as:Tombstone`s **SHOULD NOT** be used to mark removed items.
+
+An object **MUST NOT** have more than one value for its `mon:mon` property.
+Upon encountering an object with more than one `mon:mon` value, processors **MUST** ignore all values; that is, treat the object as if *no* `mon:mon` property had been defined.
+
+###  6.3 The `mon:routes` Property
+
++ URI: `tag:marrus.xyz,2018:activitymon::routes`
++ Domain: `mon:Region` | `mon:Route`
++ Range:
+    + `as:Collection` | `as:OrderedCollection`
++ Functional: True
+
+Provides an `as:OrderedCollection` or `as:Collection` of `mon:Route`s which might be accessed from a given location.
+For `mon:Region`s, this **MUST** be an `as:OrderedCollection`.
+
+An object **MUST NOT** have more than one value for its `mon:routes` property.
+Upon encountering an object with more than one `mon:routes` value, processors **MUST** ignore all values; that is, treat the object as if *no* `mon:routes` property had been defined.
+
+##  7. Changelog  ##
+
+ >  This section is non-normative.
+
+#####  2018-04-21.
+
+ +  Split off an extensive number of objects and properties to create the [Roleplaying Vocabulary][].
+    ☞ [Issue #11](https://github.com/kibimon/activitymon/issues/11)
+
+     +  Removed said types/properties from this specification.
+
+     +  Rewrote remaining sections to make use of this new vocabulary.
+
+ +  Removed image directionality URIs as they belong in a different spec.
+
+ +  Fixed some typos and mistakes in the previous version.
+
+#####  2018-04-20.
+
+ +  Split the [ActivityMon][] specification into two components: [Mon Vocabulary][] and [ActivityMon Core][].
+    ☞ [Issue #7](https://github.com/kibimon/activitymon/issues/7)
+
+ +  Significant rewriting of sections for clarity and precision; fixed typos.
+
+     +  Clarified the relationship between this and other specifications.
+
+     +  Clarified notational conventions regarding type URIs.
+
+ +  Added the `mon:Trainer` Mon Actor Type and mandated `as:Person` as an additional type for `mon:Mon`.
+    ☞ [Issue #3](https://github.com/kibimon/activitymon/issues/3)
+
+ +  Renamed `mon:Move` and `mon:MoveKind` to `mon:Learned` and `mon:Technique` to avoid confusion with `as:Move`.
+
+     +  Also renamed `mon:moveset` to `mon:learnset` and `mon:moves` to `mon:learned`.
+
+ +  Better clarified the expected behaviour for processors when encountering an object with more than one associated objects when one or fewer is expected.
+    ☞ [Issue #1](https://github.com/kibimon/activitymon/issues/1)
+
+     +  Also clarified this for functional properties.
+
+ +  Made `mon:Route` an Actor type.
+    ☞ [Issue #4](https://github.com/kibimon/activitymon/issues/4)
+
+     +  Also added `mon:dex` and `mon:routes` properties to `mon:Route` for better mon/route discovery.
+
+ +  The `mon:learned` `mon:Learned` objects of a `mon:Mon` are now ordered.
+
+     +  As a result, the `mon:learned` property is now functional.
+
+ +  Added a `mon:Search` Activity, intended for searching `mon:Route`s.
+    ☞ [Issue #5](https://github.com/kibimon/activitymon/issues/5)
+
+ +  `mon:Species` are now associated with `mon:Region`s using `as:assignedTo`, not `as:context`, to match `mon:Route`s.
+
+ +  The default `mon:growth` function has changed from `x^3` to the much more sensible `3x^2` (the old function measured *total* experience).
+
+     +  Additionally, guidelines for creating and processing `mon:growth` functions have been added.
+
+ +  `mon:power` was changed to allow values of 0.
+
+ +  Renamed `mon:GrowthPart` to `mon:GrowthFunc` for clarity.
+
+ +  The `mon:Technique` associated with a `mon:Learned` object is now specified via the `mon:technique` property, rather than `as:context`, to indicate the close semantic relationship.
+
+ +  `mon:Mon` are no longer required to have `mon:Species`.
+
+ +  `mon:Item`s, `mon:Region`s, and `mon:Route`s are now explicitly listed as valid values for the `as:generator` property.
+
+ +  The meaning of `as:summary` and `as:content` is now defined for many types.
+
+#####  2018-04-18.
+
+ +  Initial specification.
+
+
+[Activity Vocabulary]:    <https://www.w3.org/TR/activitystreams-vocabulary/> "Activity Vocabulary"
+[ActivityMon]:            <https://kibimon.github.io/activitymon/>            "ActivityMon"
+[ActivityMon Core]:       <https://kibimon.github.io/activitymon/core/>       "ActivityMon Core"
+[ActivityStreams 2.0]:    <https://www.w3.org/TR/activitystreams-core/>       "Activity Streams 2.0"
+[Mon Vocabulary]:         <https://kibimon.github.io/activitymon/vocabulary/> "Mon Vocabulary"
+[RFC2119]:                <https://tools.ietf.org/html/rfc2119>               "Key words for use in RFCs to Indicate Requirement Levels"
+[Roleplaying Vocabulary]: <https://kibimon.github.io/roleplaying/vocabulary/> "Roleplaying Vocabulary"
