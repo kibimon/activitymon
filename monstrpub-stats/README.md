@@ -76,7 +76,7 @@ A single `rp:Attribute` **MAY** have more than one type.
  >  **Example:**
  >  An `rp:Attribute` might have the types `mon:Resistance` and `mon:Special` if its `rp:level` is intended to affect both offensive and defensive special behaviours.
 
-For cross-compatibility with other systems, all conforming MonStrPub servers **MUST** explicitly declare an additional `@type` of `rp:Attribute` on all attributes which have one of the Mon Attribute Types listed above.
+For cross-compatibility with other systems, all conforming MonStrPub servers **MUST** explicitly declare an additional `@type` of `rp:Attribute` on all objects which have one of the Mon Attribute Types listed above.
 
 ##  4. Stat Processing  ##
 
@@ -108,7 +108,7 @@ The Mon Stat Types above are disjoint:
 An `rp:Stat` object **MUST NOT** have more than one of these types.
 Implementations **MUST** ignore any objects which have multiple Mon Stat Types.
 
-For cross-compatibility with other systems, all conforming MonStrPub servers **MUST** explicitly declare an additional `@type` of `rp:Stat` on all stat which have one of the Mon Stat Types listed above.
+For cross-compatibility with other systems, all conforming MonStrPub servers **MUST** explicitly declare an additional `@type` of `rp:Stat` on all objects which have one of the Mon Stat Types listed above.
 
 ###  4.3 Stat Attributes
 
@@ -128,7 +128,7 @@ The `rp:level` of an `rp:Stat` gives the current value of the stat.
 For `mon:CmpStat` objects, `rp:level` **SHOULD** be in the range \[1, 720].
 For all other `rp:Stat` objects, `rp:level` **SHOULD** be in the range \[0, 255].
 
-If no `rp:Stat` of an appropriate type is associated with a `mon:Mon` for a given `rp:Attribute`, servers **SHOULD** use one as the default value for `mon:CmpStat` objects, and zero as the default value otherwise.
+If no `rp:Stat` of an appropriate type is associated with a `mon:Mon` for a given `rp:Attribute`, servers **SHOULD** use 1 as the default value for `mon:CmpStat` objects, and 0 as the default value otherwise.
 
 Servers **MAY** clamp the value of `rp:level` to a range of their choosing for any `rp:Stat` type during processing.
 
@@ -158,8 +158,6 @@ When processing an `rp:Stat` with an `rp:Attribute` associated via the `rp:class
 
 The following Mon Attribute Types are provided for use with the `rp:class` property on `rp:Stat`s or extensions thereof.
 For all of the types listed in this section, the `rp:Attribute` type **MUST** also be (explicitly) specified on the object, to ensure cross-compatibility with servers which do not implement this spec.
-
-The Mon Attribute Types defined in this section are mutually exclusive; objects **MUST NOT** have more than one of these types.
 
 ###  5.1 The `mon:Constitution` Attribute
 
@@ -213,6 +211,8 @@ Indicates proficiency with physical actions.
 
 The following Mon Stat Types are provided for use with the `rp:stat` property on `mon:Mon`.
 For all of the types listed in this section, the `rp:Stat` type **MUST** also be (explicitly) specified on the object, to ensure cross-compatibility with servers which do not implement this spec.
+
+The Mon Stat Types defined in this section are mutually exclusive; objects **MUST NOT** have more than one of these types.
 
 ###  6.1 The `mon:BaseStat` Stat
 
@@ -364,7 +364,7 @@ Given a `mon:Mon` and an `rp:Attribute`:
 								<mo>,</mo>
 							</mtd>
 							<mtd>
-								<mo>if</mo>
+								<mo lspace="0em">if</mo>
 								<mrow>
 									<mi>rp:class</mi>
 									<mo>∈</mo>
@@ -406,6 +406,10 @@ When cloning `mon:Mon` or `mon:Species` from another server which does not speci
 ##  9. Changelog  ##
 
  >  This section is non-normative.
+
+#####  2018-05-01 (2).
+
+ +  Fixed typos.
 
 #####  2018-05-01.
 
