@@ -1,4 +1,4 @@
-#  ActivityMon Levels
+#  MonStrPub Levels
 Draft Specification
 
  - - -
@@ -12,18 +12,18 @@ This specification describes a set of basic requirements for dealing with levels
 ##  1. Introduction  ##
 
 The [Mon Vocabulary][] defines `mon:Mon` as `rs:Ranked` objects, which may have levels and gain experience.
-However, no processing requirements for `rs:level` or `rs:experience` are included in the [ActivityMon Core][] specification.
-This specification defines a basic set of requirements for assigning and handling mon levels on servers as part of the larger [ActivityMon][] protocol.
+However, no processing requirements for `rs:level` or `rs:experience` are included in the [MonStrPub Core][] specification.
+This specification defines a basic set of requirements for assigning and handling mon levels on servers as part of the larger [MonStrPub][] protocol.
 
 ###  1.1 Relationship to Other Specifications
 
-This document is an **OPTIONAL** part of the [ActivityMon][] set of specifications.
-Conform to this specification is **RECOMMENDED** for ActivityMon implementations which intend to set or handle the `rp:level` or `rp:experience` properties on `mon:Mon`.
+This document is an **OPTIONAL** part of the [MonStrPub][] set of specifications.
+Conform to this specification is **RECOMMENDED** for MonStrPub implementations which intend to set or handle the `rp:level` or `rp:experience` properties on `mon:Mon`.
 
 This document uses the vocabulary defined in the [Mon Vocabulary][] specification.
 This vocabulary itself depends on that defined in the [Roleplaying Vocabulary][] specification.
 
-This document assumes conformance with the [ActivityMon Core][].
+This document assumes conformance with the [MonStrPub Core][].
 
 This document defines an [ActivityPub][] extension, and depends upon both the [Activity Vocabulary][] and [ActivityStreams 2.0][].
 
@@ -32,20 +32,22 @@ This document defines an [ActivityPub][] extension, and depends upon both the [A
 [Activity Vocabulary][] types are indicated with the prefix `as:`, which represents the `https://www.w3.org/ns/activitystreams#` base URI.
 Note that in [ActivityStreams 2.0][] documents, this prefix **MAY** be omitted.
 
-Roleplaying Vocabulary types are indicated with the prefix `rp:`, which represents the `tag:marrus.xyz,2018:roleplaying::` base URI.
+[Roleplaying Vocabulary][] types are indicated with the prefix `rp:`, which represents the `https://www.monstr.pub/ns/roleplaying#` base URI.
 Note that in [ActivityStreams 2.0][] documents, this prefix **MUST** be declared in the `@context` of the document to be valid, and a different prefix **MAY** be used instead.
 
-Mon Vocabulary types are indicated with no prefix `mon:`, which represents the `tag:marrus.xyz,2018:activitymon::` base URI.
+[Mon Vocabulary][] types are indicated with the prefix `mon:`, which represents the `https://www.monstr.pub/ns/monstrpub#` base URI.
 Note that in [ActivityStreams 2.0][] documents, this prefix **MUST** be declared in the `@context` of the document to be valid, and a different prefix **MAY** be used instead.
+
+ >  As this is still a draft specification, the above URIs may change at some point in the future.
 
 ##  2. Conformance  ##
 
-All sections explicitly marked as non-normative, as well as any diagrams, exmaples, or notes in this specification, are non-normative.
+All sections explicitly marked as non-normative, as well as any diagrams, examples, or notes in this specification, are non-normative.
 Everything else in this specification is normative.
 
-ActivityMon is an extension of [ActivityPub][] and inherits its conformance requirements, including its conformance classes.
+MonStrPub is an extension of [ActivityPub][] and inherits its conformance requirements, including its conformance classes.
 
-[ActivityMon Levels][] is an extension to [ActivityMon Core][], and every conforming ActivityMon Levels implementation **MUST** also conform to ActivityMon Core.
+MonStrPub Levels is an extension to [MonStrPub Core][], and every conforming MonStrPub Levels implementation **MUST** also conform to MonStrPub Core.
 
 Implementations **MAY** deviate from the exact steps of algorithms defined in this specification, so long as the implemented algorithm produces the same result.
 
@@ -54,7 +56,7 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHOULD**, **SHOULD NOT**, 
 ##  3. Levels and Experience  ##
 
 The level of a `mon:Mon` **MAY** be given using the `rp:level` property.
-Servers **SHOULD** implement a maximum level for `mon:Mon`, and the number `100` is **RECOMMENDED** as this maximum value.
+Servers **MAY** implement a maximum level for `mon:Mon`, and the number `100` is **RECOMMENDED** as this maximum value.
 When following the steps for cloning mon, servers **MAY** replace any value for the `rp:level` property which exceeds the maximum with the maximum value.
 
 Servers **SHOULD** treat `mon:Mon` whose `rp:level` property is absent or unspecified as though the value `0` had been specified instead.
@@ -86,6 +88,10 @@ Whenever the `rp:experience` property changes on a `mon:Mon` which is controlled
 Servers **SHOULD NOT** run the preceding steps for `mon:Mon` whose `rp:level` is already at the maximum value.
 Servers **MAY** run these steps at other times.
 
+Servers **MAY** generate an `as:Update` activity to indicate that the `mon:Mon` has been updated if the final completion of the above steps results in a change in level.
+If the above steps are repeated multiple times, an `as:Update` **SHOULD** only be generated for the final result.
+Servers **SHOULD NOT** generate an `as:Update` activity if running the above steps does not result in a change to the properties of the `mon:Mon`.
+
 ###  3.3 Interactions with Other Servers
 
 Servers implementing this specification **SHOULD** be able to gracefully interact with servers which do not.
@@ -95,17 +101,25 @@ When cloning `mon:Mon` from another server which does not specify a `mon:level`,
 
  >  This section is non-normative.
 
+#####  2018-05-01.
+
+ +  Renamed ActivityMon to MonStrPub with new URLs.
+
+ +  Weakened the recommendation for maximum levels from **SHOULD** to **MAY**.
+
+ +  Added recommendations regarding `as:Update` activities.
+
 #####  2018-04-21.
 
  +  Initial specification.
     Some of the requirements in this specification are taken from earlier drafts of the [Mon Vocabulary][].
 
 
-[Activity Vocabulary]:    <https://www.w3.org/TR/activitystreams-vocabulary/> "Activity Vocabulary"
-[ActivityMon]:            <https://kibimon.github.io/activitymon/>            "ActivityMon"
-[ActivityMon Core]:       <https://kibimon.github.io/activitymon/core/>       "ActivityMon Core"
-[ActivityPub]:            <https://www.w3.org/TR/activitypub/>                "ActivityPub"
-[ActivityStreams 2.0]:    <https://www.w3.org/TR/activitystreams-core/>       "Activity Streams 2.0"
-[Mon Vocabulary]:         <https://kibimon.github.io/activitymon/vocabulary/> "Mon Vocabulary"
-[RFC2119]:                <https://tools.ietf.org/html/rfc2119>               "Key words for use in RFCs to Indicate Requirement Levels"
-[Roleplaying Vocabulary]: <https://kibimon.github.io/roleplaying/vocabulary/> "Roleplaying Vocabulary"
+[Activity Vocabulary]:    <https://www.w3.org/TR/activitystreams-vocabulary/>   "Activity Vocabulary"
+[ActivityPub]:            <https://www.w3.org/TR/activitypub/>                  "ActivityPub"
+[ActivityStreams 2.0]:    <https://www.w3.org/TR/activitystreams-core/>         "Activity Streams 2.0"
+[Mon Vocabulary]:         <https://www.monstr.pub/spec/mon-vocabulary/>         "Mon Vocabulary"
+[MonStrPub]:              <https://www.monstr.pub/spec/monstrpub-overview/>     "MonStrPub"
+[MonStrPub Core]:         <https://www.monstr.pub/spec/monstrpub-core/>         "MonStrPub Core"
+[RFC2119]:                <https://tools.ietf.org/html/rfc2119>                 "Key words for use in RFCs to Indicate Requirement Levels"
+[Roleplaying Vocabulary]: <https://www.monstr.pub/spec/roleplaying-vocabulary/> "Roleplaying Vocabulary"

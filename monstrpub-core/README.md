@@ -5,7 +5,7 @@ Draft Specification
 
 ##  Abstract  ##
 
-This specification describes the core requirements for the [ActivityMon][] extension to [ActivityPub][].
+This specification describes the core requirements for the [MonStrPub][] extension to [ActivityPub][].
 In particular, it deliniates the basic processing requirements for [Mon Vocabulary][] objects sent across the [ActivityPub][] protocol.
 
  - - -
@@ -30,19 +30,21 @@ This document defines an [ActivityPub][] extension, and depends upon both the [A
 [Activity Vocabulary][] types are indicated with the prefix `as:`, which represents the `https://www.w3.org/ns/activitystreams#` base URI.
 Note that in [ActivityStreams 2.0][] documents, this prefix **MAY** be omitted.
 
-Roleplaying Vocabulary types are indicated with the prefix `rp:`, which represents the `tag:marrus.xyz,2018:roleplaying::` base URI.
+[Roleplaying Vocabulary][] types are indicated with the prefix `rp:`, which represents the `https://www.monstr.pub/ns/roleplaying#` base URI.
 Note that in [ActivityStreams 2.0][] documents, this prefix **MUST** be declared in the `@context` of the document to be valid, and a different prefix **MAY** be used instead.
 
-Mon Vocabulary types are indicated with no prefix `mon:`, which represents the `tag:marrus.xyz,2018:activitymon::` base URI.
+[Mon Vocabulary][] types are indicated with the prefix `mon:`, which represents the `https://www.monstr.pub/ns/monstrpub#` base URI.
 Note that in [ActivityStreams 2.0][] documents, this prefix **MUST** be declared in the `@context` of the document to be valid, and a different prefix **MAY** be used instead.
+
+ >  As this is still a draft specification, the above URIs may change at some point in the future.
 
 ##  2. Conformance  ##
 
-All sections explicitly marked as non-normative, as well as any diagrams, exmaples, or notes in this specification, are non-normative.
+All sections explicitly marked as non-normative, as well as any diagrams, examples, or notes in this specification, are non-normative.
 Everything else in this specification is normative.
 
-ActivityMon is an extension of [ActivityPub][] and inherits its conformance requirements, including its conformance classes.
-Every conforming ActivityMon implementation **MUST** also be a conforming ActivityPub implementation.
+MonStrPub is an extension of [ActivityPub][] and inherits its conformance requirements, including its conformance classes.
+Every conforming MonStrPub implementation **MUST** also be a conforming ActivityPub implementation.
 
 Implementations **MAY** deviate from the exact steps of algorithms defined in this specification, so long as the implemented algorithm produces the same result.
 
@@ -50,9 +52,9 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHOULD**, **SHOULD NOT**, 
 
 ##  3. Actors and Objects  ##
 
-ActivityMon servers are **REQUIRED** to recognize objects of type `mon:Mon` and `mon:Trainer` as actors.
-ActivityMon servers **MAY** treat `as:Person` objects as though a type of `mon:Trainer` were specified if no other Mon Actor Type is present.
-ActivityMon servers **SHOULD** ignore any unrecognized types on objects for whom a Mon Actor Type is specified.
+MonStrPub servers are **REQUIRED** to recognize objects of type `mon:Mon` and `mon:Trainer` as actors.
+MonStrPub servers **MAY** treat `as:Person` objects as though a type of `mon:Trainer` were specified if no other Mon Actor Type is present.
+MonStrPub servers **SHOULD** ignore any unrecognized types on objects for whom a Mon Actor Type is specified.
 
 `mon:Trainer` Actor objects **SHOULD** have a `mon:mon` property.
 This is link to a list of all of the `mon:Mon` which an actor has successfully `mon:Capture`d, added as a side effect.
@@ -61,11 +63,11 @@ The `mon:mon` collection **MUST** be either an `mon:OrderedCollection` or a `mon
  >  **Example:**
  >  A server with a concept of a "party" might hide all non-party `mon:Mon` from a `mon:mon` collection for non-authenticated users.
 
-ActivityMon servers **MUST NOT** include `mon:Mon` that they do not control in the collection referenced by the `mon:mon` property of a `mon:Trainer` that they do.
+MonStrPub servers **MUST NOT** include `mon:Mon` that they do not control in the collection referenced by the `mon:mon` property of a `mon:Trainer` that they do.
 
 ###  3.1 Cloning Objects
 
-This section sets forth processing rules for cloning certain types of ActivityMon object.
+This section sets forth processing rules for cloning certain types of MonStrPub object.
 When cloning objects, implementations **MAY** assign or copy over additional properties or values, so long as the resulting object still conforms to the [Mon Vocabulary][] specification.
 
 ####  3.1.1 Cloning ordinary objects
@@ -98,13 +100,16 @@ To clone a `rp:Class`, a server **SHOULD** take the following steps:
 1.  If the original object has a `as:source` property whose value has a valid `@id`, attempt to resolve the `@id`.
     If the `@id` resolves to a valid object of a recognized type which is, or extends, `rp:Class`, abort and re-run these steps using this resolved object instead.
 
-2.  Run the steps for cloning an ordinary object on the original object, with the following caveats:
+2.  If the original object is controlled by this server, terminate these steps.
+    The original and resulting objects are the same.
+
+3.  Run the steps for cloning an ordinary object on the original object, with the following caveats:
 
     1.  If the server has cloned a class with this `@id` before, then the new clone **SHOULD** replace the old one and share the same `@id`.
 
     2.  The resulting object **MUST** have a valid, non-null `@id`.
 
-3.  Assign the original object to the `as:source` property of the resulting object.
+4.  Assign the original object to the `as:source` property of the resulting object.
 
  >  **Note:**
     The following types all extend `rp:Class`:
@@ -172,12 +177,12 @@ Servers **MAY** wait to apply these effects until after an `as:Accept` activity 
 
 ##  4. Server to Server Interactions  ##
 
-As with Client to Server interactions, ActivityMon both specifies additional Activities with special behaviour under client to server interactions, and specifies additional restrictions and processing behaviours for those defined by [ActivityPub][].
+As with Client to Server interactions, MonStrPub both specifies additional Activities with special behaviour under client to server interactions, and specifies additional restrictions and processing behaviours for those defined by [ActivityPub][].
 
 ###  4.1 The `as:Arrive` Activity
 
 The `as:Arrive` activity is used to announce the arrival of its `as:actor` at an `as:location`.
-In ActivityMon, this **MAY** be used to signal successful arrival at a `mon:Route`.
+In MonStrPub, this **MAY** be used to signal successful arrival at a `mon:Route`.
 
 Upon receiving an `as:Arrive` activity in an **inbox**, servers **SHOULD** update its copy of the object with the same `@id` as specified by the activity's `as:actor`, to ensure that the location change is recorded.
 
@@ -237,6 +242,12 @@ In the case of an `as:Reject`, the server **SHOULD NOT** apply such effects.
 
  >  This section is non-normative.
 
+#####  2018-05-01.
+
+ +  Renamed ActivityMon to MonStrPub with new URLs.
+
+ +  Clarified that local `rp:Class`es need not be cloned.
+
 #####  2018-04-21.
 
  +  Updated to utilize the new [Roleplaying Vocabulary][].
@@ -251,7 +262,7 @@ In the case of an `as:Reject`, the server **SHOULD NOT** apply such effects.
 
 #####  2018-04-20.
 
- +  Split the [ActivityMon][] specification into two components: [Mon Vocabulary][] and [ActivityMon Core][].
+ +  Split the [ActivityMon][MonStrPub] specification into two components: [Mon Vocabulary][] and [ActivityMon Core][MonStrPub Core].
     ☞ [Issue #7](https://github.com/kibimon/activitymon/issues/7)
 
  +  Significant rewriting of sections for clarity and precision; fixed typos.
@@ -288,11 +299,11 @@ In the case of an `as:Reject`, the server **SHOULD NOT** apply such effects.
  +  Initial specification.
 
 
-[Activity Vocabulary]:    <https://www.w3.org/TR/activitystreams-vocabulary/> "Activity Vocabulary"
-[ActivityMon]:            <https://kibimon.github.io/activitymon/>            "ActivityMon"
-[ActivityMon Core]:       <https://kibimon.github.io/activitymon/core/>       "ActivityMon Core"
-[ActivityPub]:            <https://www.w3.org/TR/activitypub/>                "ActivityPub"
-[ActivityStreams 2.0]:    <https://www.w3.org/TR/activitystreams-core/>       "Activity Streams 2.0"
-[Mon Vocabulary]:         <https://kibimon.github.io/activitymon/vocabulary/> "Mon Vocabulary"
-[RFC2119]:                <https://tools.ietf.org/html/rfc2119>               "Key words for use in RFCs to Indicate Requirement Levels"
-[Roleplaying Vocabulary]: <https://kibimon.github.io/roleplaying/vocabulary/> "Roleplaying Vocabulary"
+[Activity Vocabulary]:    <https://www.w3.org/TR/activitystreams-vocabulary/>   "Activity Vocabulary"
+[ActivityPub]:            <https://www.w3.org/TR/activitypub/>                  "ActivityPub"
+[ActivityStreams 2.0]:    <https://www.w3.org/TR/activitystreams-core/>         "Activity Streams 2.0"
+[Mon Vocabulary]:         <https://www.monstr.pub/spec/mon-vocabulary/>         "Mon Vocabulary"
+[MonStrPub]:              <https://www.monstr.pub/spec/monstrpub-overview/>     "MonStrPub"
+[MonStrPub Core]:         <https://www.monstr.pub/spec/monstrpub-core/>         "MonStrPub Core"
+[RFC2119]:                <https://tools.ietf.org/html/rfc2119>                 "Key words for use in RFCs to Indicate Requirement Levels"
+[Roleplaying Vocabulary]: <https://www.monstr.pub/spec/roleplaying-vocabulary/> "Roleplaying Vocabulary"

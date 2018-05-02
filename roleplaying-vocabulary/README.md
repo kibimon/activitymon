@@ -26,7 +26,7 @@ This document builds upon the [Activity Vocabulary][] and is intended for use in
 [Activity Vocabulary][] types are indicated with the prefix `as:`, which represents the `https://www.w3.org/ns/activitystreams#` base URI.
 Note that in [ActivityStreams 2.0][] documents, this prefix **MAY** be omitted.
 
-Roleplaying Vocabulary types are indicated with the prefix `rp:`, which represents the `tag:marrus.xyz,2018:roleplaying::` base URI.
+Roleplaying Vocabulary types are indicated with the prefix `rp:`, which represents the `https://www.monstr.pub/ns/roleplaying#` base URI.
 Note that in [ActivityStreams 2.0][] documents, this prefix **MUST** be declared in the `@context` of the document to be valid, and a different prefix **MAY** be used instead.
 
  >  As this is still a draft specification, the above URIs may change at some point in the future.
@@ -56,7 +56,7 @@ A changelog is available at the end of the specification.
 
 ##  2. Conformance  ##
 
-All sections explicitly marked as non-normative, as well as any diagrams, exmaples, or notes in this specification, are non-normative.
+All sections explicitly marked as non-normative, as well as any diagrams, examples, or notes in this specification, are non-normative.
 Everything else in this specification is normative.
 
 The Roleplaying Vocabulary is an extension of the [Activity Vocabulary][].
@@ -105,7 +105,7 @@ The following types already exist in the [Activity Vocabulary][], so there is no
 
 ###  3.2 The `rp:Affect` Activity
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Affect`
++ URI: `https://www.monstr.pub/ns/roleplaying#Affect`
 + Extends: `as:Activity`
 + Properties: Inherits all properties from `as:Activity`.
 
@@ -114,7 +114,7 @@ The `as:instrument` property **MAY** be used to indicate the manner of affect.
 
 ###  3.3 The `rp:Evolve` Activity
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Evolve`
++ URI: `https://www.monstr.pub/ns/roleplaying#Evolve`
 + Extends:
     + `as:IntransitiveActivity` | `rp:Instance`
 + Properties: Inherits all properties from `as:IntransitiveActivity` and `rp:Instance`.
@@ -124,7 +124,7 @@ The new class **MAY** be specified via the `rp:class` property.
 
 ###  3.4 The `rp:Learn` Activity
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Learn`
++ URI: `https://www.monstr.pub/ns/roleplaying#Learn`
 + Extends: `as:Activity`
 + Properties: Inherits all properties from `as:Activity`
 
@@ -132,7 +132,7 @@ Indicates that the `as:actor` has learned how to use the `as:object`.
 
 ###  3.5 The `rp:Teach` Activity
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Teach`
++ URI: `https://www.monstr.pub/ns/roleplaying#Teach`
 + Extends: `as:Offer`
 + Properties: Inherits all properties from `as:Offer`
 
@@ -140,7 +140,7 @@ A specialization of `as:Offer` in which the `as:actor` is attempting to teach th
 
 ###  3.6 The `rp:Use` Activity
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Use`
++ URI: `https://www.monstr.pub/ns/roleplaying#Use`
 + Extends: `as:Offer`
 + Properties: Inherits all properties from `as:Offer`
 
@@ -153,7 +153,7 @@ In the Roleplaying Vocabulary, actions have type `rp:Action`.
 
 ###  4.1 The `rp:Action` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Action`
++ URI: `https://www.monstr.pub/ns/roleplaying#Action`
 + Extends: `rp:Effectual`
 + Properties:
     + `rp:likelihood` | `rp:power`
@@ -167,7 +167,7 @@ A longer description of the `rp:Action` **MAY** be provided via the `as:content`
 
 ###  4.2 The `rp:likelihood` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::likelihood`
++ URI: `https://www.monstr.pub/ns/roleplaying#likelihood`
 + Domain: `rp:Action`
 + Range: `xsd:float` [>= 0.0f, <=1.0f]
 + Functional: True
@@ -179,7 +179,7 @@ Upon encountering an object with more than one `rp:likelihood` value, processors
 
 ###  4.3 The `rp:power` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::power`
++ URI: `https://www.monstr.pub/ns/roleplaying#power`
 + Domain: `rp:Action`
 + Range: `xsd:nonNegativeInteger`
 + Functional: True
@@ -202,7 +202,7 @@ Classes **MAY** be used to group together viable combinations so that they can b
 
 ###  5.1 The `rp:Class` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Class`
++ URI: `https://www.monstr.pub/ns/roleplaying#Class`
 + Extends: `as:Object`
 + Properties:
     + `rp:becomes` | `rp:maxHealth`
@@ -220,7 +220,7 @@ A longer description of the `rp:Class` **MAY** be provided via the `as:content` 
 
 ###  5.2 The `rp:ClassChange` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::ClassChange`
++ URI: `https://www.monstr.pub/ns/roleplaying#ClassChange`
 + Extends: `rp:Scoped`
 + Properties
     + `rp:class`
@@ -232,7 +232,7 @@ If neither `rp:maxLevel` nor `rp:minLevel` are provided, the `rp:ClassChange` ha
 
 ###  5.3 The `rp:Instance` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Instance`
++ URI: `https://www.monstr.pub/ns/roleplaying#Instance`
 + Extends: `as:Object`
 + Properties:
     + `rp:class`
@@ -244,7 +244,7 @@ The `rp:class` property **SHOULD** be used to denote the `rp:Class` that this `r
 
 ###  5.4 The `rp:becomes` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::becomes`
++ URI: `https://www.monstr.pub/ns/roleplaying#becomes`
 + Domain: `rp:Class`
 + Range: `rp:ClassChange`
 
@@ -253,7 +253,7 @@ The `rp:becomes` property is **NOT REQUIRED** to be exhaustive.
 
 ###  5.5 The `rp:class` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::class`
++ URI: `https://www.monstr.pub/ns/roleplaying#class`
 + Domain:
     + `rp:ClassChange` | `rp:Instance`
 + Range: `as:Link`
@@ -271,7 +271,7 @@ These can be assigned to `rp:Effectual` objects with the `rp:effect` property.
 
 ###  6.1 The `rp:Effect` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Effect`
++ URI: `https://www.monstr.pub/ns/roleplaying#Effect`
 + Extends: `as:Object`
 + Properties: Inherits all properties from `as:Object`
 
@@ -283,7 +283,7 @@ A longer description of the `rp:Effect` **MAY** be provided via the `as:content`
 
 ###  6.2 The `rp:Effectual` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Effectual`
++ URI: `https://www.monstr.pub/ns/roleplaying#Effectual`
 + Extends: `as:Object`
 + Properties:
     + `rp:effect`
@@ -293,7 +293,7 @@ Describes an object which has or produces an effect.
 
 ###  6.3 The `rp:effect` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::effect`
++ URI: `https://www.monstr.pub/ns/roleplaying#effect`
 + Domain: `rp:Effectual`
 + Range: `as:Link`
 
@@ -312,7 +312,7 @@ However, `rp:GrowthFunc`s **MAY** be used to define polynomial functions for rel
 
 ###  7.1 The `rp:GrowthFunc` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::GrowthFunc`
++ URI: `https://www.monstr.pub/ns/roleplaying#GrowthFunc`
 + Extends: `rp:Scoped`
 + Properties:
     + `rp:n0` | `rp:n1` | `rp:n2` | `rp:n3`
@@ -323,7 +323,7 @@ Describes a cubic function, which takes a level as input and calculates how much
 
 ###  7.2 The `rp:Ranked` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Ranked`
++ URI: `https://www.monstr.pub/ns/roleplaying#Ranked`
 + Extends: `rp:Object`
 + Properties:
     + `rp:exp` | `rp:growth` | `rp:level`
@@ -334,7 +334,7 @@ The `rp:growth` property **MAY** be used to denote the relationship between thes
 
 ###  7.3 The `rp:exp` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::exp`
++ URI: `https://www.monstr.pub/ns/roleplaying#exp`
 + Domain: `rp:Ranked`
 + Range: `xsd:nonNegativeInteger`
 + Functional: True
@@ -346,7 +346,7 @@ Upon encountering an object with more than one `rp:exp` value, processors **MUST
 
 ###  7.4 The `rp:growth` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::growth`
++ URI: `https://www.monstr.pub/ns/roleplaying#growth`
 + Domain: `rp:Ranked`
 + Range: `rp:GrowthFunc`
 
@@ -363,7 +363,7 @@ When processing the result of a `rp:growth` polynomial, processors **MUST** roun
 
 ###  7.5 The `rp:level` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::level`
++ URI: `https://www.monstr.pub/ns/roleplaying#level`
 + Domain: `rp:Ranked`
 + Range: `xsd:nonNegativeInteger`
 + Functional: True
@@ -375,7 +375,7 @@ Upon encountering an object with more than one `rp:level` value, processors **MU
 
 ###  7.6 The `rp:n0` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::n0`
++ URI: `https://www.monstr.pub/ns/roleplaying#n0`
 + Domain: `rp:GrowthFunc`
 + Range: `xsd:float`
 + Functional: True
@@ -387,7 +387,7 @@ Upon encountering an object with more than one `rp:n0` value, processors **SHOUL
 
 ###  7.7 The `rp:n1` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::n1`
++ URI: `https://www.monstr.pub/ns/roleplaying#n1`
 + Domain: `rp:GrowthFunc`
 + Range: `xsd:float`
 + Functional: True
@@ -399,19 +399,19 @@ Upon encountering an object with more than one `rp:n1` value, processors **SHOUL
 
 ###  7.8 The `rp:n2` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::n2`
++ URI: `https://www.monstr.pub/ns/roleplaying#n2`
 + Domain: `rp:GrowthFunc`
 + Range: `xsd:float`
 + Functional: True
 
-The second-degree coefficient of a `mon:GrowthFunc` polynomial.
+The second-degree coefficient of a `rp:GrowthFunc` polynomial.
 
 An object **MUST NOT** have more than one value for its `rp:n2` property.
 Upon encountering an object with more than one `rp:n2` value, processors **SHOULD** use the average of all of the values given.
 
 ###  7.9 The `rp:n3` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::n3`
++ URI: `https://www.monstr.pub/ns/roleplaying#n3`
 + Domain: `rp:GrowthFunc`
 + Range: `xsd:float`
 + Functional: True
@@ -429,7 +429,7 @@ In the Roleplaying Vocabulary, perishables have type `rp:Perishable`, and their 
 
 ###  8.1 The `rp:Perishable` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Perishable`
++ URI: `https://www.monstr.pub/ns/roleplaying#Perishable`
 + Extends: `rp:Object`
 + Properties:
     + `rp:health` | `rp:maxHealth`
@@ -440,20 +440,20 @@ It **MAY** be greater than `rp:maxHealth` in exceptional circumstances, as defin
 
 ###  8.2 The `rp:Health` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::health`
++ URI: `https://www.monstr.pub/ns/roleplaying#health`
 + Domain: `rp:Perishable`
 + Range: `xsd:nonNegativeInteger`
 + Functional: True
 
 Indicates current vitality, or the number of remaining uses for an object.
-If this property is not defined, the `mon:Perishable` has infinite health or uses.
+If this property is not defined, the `rp:Perishable` has infinite health or uses.
 
 An object **MUST NOT** have more than one value for its `rp:health` property.
 Upon encountering an object with more than one `rp:health` value, processors **MUST** ignore all but the smallest value.
 
 ###  8.3 The `rp:maxHealth` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::maxHealth`
++ URI: `https://www.monstr.pub/ns/roleplaying#maxHealth`
 + Domain:
     + `rp:Class` | `rp:Perishable`
 + Range: `xsd:nonNegativeInteger`
@@ -462,8 +462,8 @@ Upon encountering an object with more than one `rp:health` value, processors **M
 Indicates a maximum value for the `rp:health` property under normal circumstances.
 When assigned to a `rp:Class` which is not also `rp:Perishable`, it indicates the maximum value for the class's instances.
 
-An object **MUST NOT** have more than one value for its `mon:maxHealth` property.
-Upon encountering an object with more than one `mon:maxHealth` value, processors **MUST** ignore all but the smallest one.
+An object **MUST NOT** have more than one value for its `rp:maxHealth` property.
+Upon encountering an object with more than one `rp:maxHealth` value, processors **MUST** ignore all but the smallest one.
 
 ##  9. Qualities  ##
 
@@ -474,7 +474,7 @@ The Roleplaying Vocabulary also defines a number of subclasses of `rp:Quality` f
 
 ###  9.1 The `rp:Ability` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Ability`
++ URI: `https://www.monstr.pub/ns/roleplaying#Ability`
 + Extends: `rp:Quality`
 + Properties: Inherits all properties from `rp:Quality`
 
@@ -482,7 +482,7 @@ Describes a passive ability of an object.
 
 ###  9.2 The `rp:Affinity` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Affinity`
++ URI: `https://www.monstr.pub/ns/roleplaying#Affinity`
 + Extends: `rp:Quality`
 + Properties:
     + `rp:matchup`
@@ -493,7 +493,7 @@ Describes an affinity, or "type", of an object.
 
 ###  9.3 The `rp:Conducted` Link
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Conducted`
++ URI: `https://www.monstr.pub/ns/roleplaying#Conducted`
 + Extends: `as:Link`
 + Properties: Inherits all properties from `as:Link`
 
@@ -504,7 +504,7 @@ Processors **MUST** ignore any `rp:Conducted` link whose `as:href` is not define
 
 ###  9.4 The `rp:Forme` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Forme`
++ URI: `https://www.monstr.pub/ns/roleplaying#Forme`
 + Extends: `rp:Quality`
 + Properties: Inherits all properties from `rp:Quality`
 
@@ -513,7 +513,7 @@ The schema.org types `https://schema.org/Male` and `https://schema.org/Female` *
 
 ###  9.5 The `rp:Nature` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Nature`
++ URI: `https://www.monstr.pub/ns/roleplaying#Nature`
 + Extends: `rp:Quality`
 + Properties: Inherits all properties from `rp:Quality`
 
@@ -521,7 +521,7 @@ Describes the individual manner, nature, or temperament an object.
 
 ###  9.6 The `rp:Qualified` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Qualified`
++ URI: `https://www.monstr.pub/ns/roleplaying#Qualified`
 + Extends: `rp:Object`
 + Properties:
     + `rp:quality`
@@ -531,7 +531,7 @@ Describes an object which has `rp:Quality`s.
 
 ###  9.7 The `rp:Quality` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Quality`
++ URI: `https://www.monstr.pub/ns/roleplaying#Quality`
 + Extends: `as:Object`
 + Properties: Inherits all properties from `as:Object`
 
@@ -543,7 +543,7 @@ A longer description of the `rp:Quality` **MAY** be provided via the `as:content
 
 ###  9.8 The `rp:Resisted` Link
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Resisted`
++ URI: `https://www.monstr.pub/ns/roleplaying#Resisted`
 + Extends: `as:Link`
 + Properties: Inherits all properties from `as:Link`
 
@@ -554,7 +554,7 @@ Processors **MUST** ignore any `rp:Resisted` link whose `as:href` is not defined
 
 ###  9.9 The `rp:Unaffected` Link
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Unaffected`
++ URI: `https://www.monstr.pub/ns/roleplaying#Unaffected`
 + Extends: `as:Link`
 + Properties: Inherits all properties from `as:Link`
 
@@ -565,7 +565,7 @@ Processors **MUST** ignore any `rp:Unaffected` link whose `as:href` is not defin
 
 ###  9.10 The `rp:matchup` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::matchup`
++ URI: `https://www.monstr.pub/ns/roleplaying#matchup`
 + Domain: `rp:Affinity`
 + Range:
     + `rp:Conducted` | `rp:Resisted` | `rp:Unaffected`
@@ -576,7 +576,7 @@ They are the result of the *other* `rp:Affinity` being applied on this one.
 
 ###  9.11 The `rp:quality` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::quality`
++ URI: `https://www.monstr.pub/ns/roleplaying#quality`
 + Domain: `rp:Qualified`
 + Range: `rp:Quality`
 
@@ -589,7 +589,7 @@ In the Roleplaying Vocabulary, scoped objects are represented by `rp:Scoped`, an
 
 ###  10.1 The `rp:Scoped` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Scoped`
++ URI: `https://www.monstr.pub/ns/roleplaying#Scoped`
 + Extends: `as:Object`
 + Properties:
     + `rp:maxLevel` | `rp:minLevel`
@@ -602,7 +602,7 @@ A `rp:Scoped` object whose `rp:maxLevel` is less than `rp:minLevel` cannot be us
 
 ###  10.2 The `rp:maxLevel` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::maxLevel`
++ URI: `https://www.monstr.pub/ns/roleplaying#maxLevel`
 + Domain: `rp:Scoped`
 + Range: `xsd:nonNegativeInteger`
 + Functional: True
@@ -614,7 +614,7 @@ Upon encountering an object with more than one `rp:maxLevel` value, processors *
 
 ###  10.3 The `rp:minLevel` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::minLevel`
++ URI: `https://www.monstr.pub/ns/roleplaying#minLevel`
 + Domain: `rp:Scoped`
 + Range: `xsd:nonNegativeInteger`
 + Functional: True
@@ -633,7 +633,7 @@ In the Roleplaying Vocabulary, objects with stats are of type `rp:Quantified` an
 
 ###  11.1 The `rp:Attribute` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Attribute`
++ URI: `https://www.monstr.pub/ns/roleplaying#Attribute`
 + Extends: `rp:Class`
 + Properties: Inherits all properties from `rp:Class`
 
@@ -646,7 +646,7 @@ A longer description of the `rp:Attribute` **MAY** be provided via the `as:conte
 
 ###  11.2 The `rp:Quantified` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Quantified`
++ URI: `https://www.monstr.pub/ns/roleplaying#Quantified`
 + Extends: `as:Object`
 + Properties:
     + `rp:stat`
@@ -658,7 +658,7 @@ The stats of an `rp:Quantified` object **SHOULD** be given via the `rp:stat` pro
 
 ###  11.3 The `rp:Stat` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Stat`
++ URI: `https://www.monstr.pub/ns/roleplaying#Stat`
 + Extends:
     + `rp:Instance` | `rp:Ranked`
 + Properties: Inherits all properties from `rp:Instance` and `rp:Ranked`
@@ -673,7 +673,7 @@ The value of the `rp:class` property of a stat **SHOULD NOT** change over time.
 
 ###  11.4 The `rp:stat` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::stat`
++ URI: `https://www.monstr.pub/ns/roleplaying#stat`
 + Domain: `rp:Quantified`
 + Range: `rp:Stat`
 
@@ -688,7 +688,7 @@ Learned techniques are represented with `rp:Learned`, and technique classes are 
 
 ###  12.1 The `rp:Learnable` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Learnable`
++ URI: `https://www.monstr.pub/ns/roleplaying#Learnable`
 + Extends:
     + `rp:Instance` | `rp:Scoped`
 + Properties: Inherits all properties from `rp:Instance` and `rp:Scoped`
@@ -706,7 +706,7 @@ If these properties are absent, the `rp:Learnable` object is learnable at any le
 
 ###  12.2 The `rp:Learned` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Learned`
++ URI: `https://www.monstr.pub/ns/roleplaying#Learned`
 + Extends:
     + `rp:Instance` | `rp:Perishable`
 + Properties: Inherits all properties from `rp:Instance` and `rp:Perishable`
@@ -724,7 +724,7 @@ The `rp:health` property **MAY** be used to indicate how many times the learned 
 
 ###  12.3 The `rp:Performer` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Performer`
++ URI: `https://www.monstr.pub/ns/roleplaying#Performer`
 + Extends: `rp:Instance`
 + Properties:
     + `rp:learned` | `rp:learnset`
@@ -739,7 +739,7 @@ When processing a `rp:Performer` with one or more `rp:Role`s associated via the 
 
 ###  12.4 The `rp:Role` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Role`
++ URI: `https://www.monstr.pub/ns/roleplaying#Role`
 + Extends: `rp:Class`
 + Properties:
     + `rp:learnset`
@@ -753,7 +753,7 @@ A longer description of the `rp:Role` **MAY** be provided via the `as:content` p
 
 ###  12.5 The `rp:Technique` Object
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::Technique`
++ URI: `https://www.monstr.pub/ns/roleplaying#Technique`
 + Extends:
     + `rp:Action` | `rp:Class` | `rp:Qualified`
 + Properties: Inherits all properties from `rp:Action`, `rp:Class`, and `rp:Qualified`.
@@ -766,7 +766,7 @@ A longer description of the `rp:Technique` **MAY** be provided via the `as:conte
 
 ###  12.6 The `rp:learned` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::learned`
++ URI: `https://www.monstr.pub/ns/roleplaying#learned`
 + Domain: `rp:Performer`
 + Range:
     + `as:Collection` | `as:OrderedCollection`
@@ -783,18 +783,24 @@ Upon encountering an object with more than one `rp:learned` value, processors **
 
 ###  12.7 The `rp:learnset` Property
 
-+ URI: `tag:marrus.xyz,2018:roleplaying::learnset`
++ URI: `https://www.monstr.pub/ns/roleplaying#learnset`
 + Domain:
     + `rp:Performer` | `rp:Role`
 + Range: `rp:Learnable`
 
-Indicates the potentially `mon:Learnable` techniques for a given `rp:Performer` or `rp:Instance` of an `rp:Role`.
+Indicates the potentially `rp:Learnable` techniques for a given `rp:Performer` or `rp:Instance` of an `rp:Role`.
 For `rp:Performer`s, this property is *additive*:
 Processors **SHOULD** consider both the `rp:Learnable` objects specified on a `rp:Performer`'s own `rp:learnset` property and those declared in that of its associated `rp:Role`(s), where applicable.
 
 ##  13. Changelog  ##
 
  >  This section is non-normative.
+
+#####  2018-05-01.
+
+ +  New <https://www.monstr.pub/> URLs.
+
+ +  Typo fixes and corrections from the previous version.
 
 #####  2018-04-21.
 
@@ -810,7 +816,7 @@ Processors **SHOULD** consider both the `rp:Learnable` objects specified on a `r
 
 
 [Activity Vocabulary]: <https://www.w3.org/TR/activitystreams-vocabulary/> "Activity Vocabulary"
-[RPPub]:               <https://kibimon.github.io/roleplaying/>            "RPPub"
 [ActivityStreams 2.0]: <https://www.w3.org/TR/activitystreams-core/>       "Activity Streams 2.0"
-[Mon Vocabulary]:      <https://kibimon.github.io/activitymon/vocabulary/> "Mon Vocabulary"
+[Mon Vocabulary]:      <https://www.monstr.pub/spec/mon-vocabulary/>       "Mon Vocabulary"
 [RFC2119]:             <https://tools.ietf.org/html/rfc2119>               "Key words for use in RFCs to Indicate Requirement Levels"
+[RPPub]:               <https://www.monstr.pub/spec/rppub-overview/>       "RPPub"

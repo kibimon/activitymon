@@ -19,8 +19,8 @@ This specification defines a common vocabulary for describing mon and trainers, 
 
 ###  1.1 Relationship to Other Specifications
 
-This document is part of the [ActivityMon][] set of specifications.
-Any process claiming to implement ActivityMon must conform to this specification.
+This document is part of the [MonStrPub][] set of specifications.
+Any process claiming to implement MonStrPub must conform to this specification.
 
 This document builds upon the [Activity Vocabulary][] and is intended for use in an [ActivityStreams 2.0][] context.
 
@@ -29,17 +29,17 @@ This document builds upon the [Activity Vocabulary][] and is intended for use in
 [Activity Vocabulary][] types are indicated with the prefix `as:`, which represents the `https://www.w3.org/ns/activitystreams#` base URI.
 Note that in [ActivityStreams 2.0][] documents, this prefix **MAY** be omitted.
 
-Roleplaying Vocabulary types are indicated with the prefix `rp:`, which represents the `tag:marrus.xyz,2018:roleplaying::` base URI.
+[Roleplaying Vocabulary][] types are indicated with the prefix `rp:`, which represents the `https://www.monstr.pub/ns/roleplaying#` base URI.
 Note that in [ActivityStreams 2.0][] documents, this prefix **MUST** be declared in the `@context` of the document to be valid, and a different prefix **MAY** be used instead.
 
-Mon Vocabulary types are indicated with the prefix `mon:`, which represents the `tag:marrus.xyz,2018:activitymon::` base URI.
+[Mon Vocabulary][] types are indicated with the prefix `mon:`, which represents the `https://www.monstr.pub/ns/monstrpub#` base URI.
 Note that in [ActivityStreams 2.0][] documents, this prefix **MUST** be declared in the `@context` of the document to be valid, and a different prefix **MAY** be used instead.
 
  >  As this is still a draft specification, the above URIs may change at some point in the future.
 
 ##  2. Conformance  ##
 
-All sections explicitly marked as non-normative, as well as any diagrams, exmaples, or notes in this specification, are non-normative.
+All sections explicitly marked as non-normative, as well as any diagrams, examples, or notes in this specification, are non-normative.
 Everything else in this specification is normative.
 
 The Mon Vocabulary is an extension of the [Roleplaying Vocabulary][], which is in turn an extension of the [Activity Vocabulary][].
@@ -68,7 +68,7 @@ Many of these are subtypes of a more specific Activity Type; for example, `as:Of
 
 ###  3.1 The `mon:Capture` Activity
 
-+ URI: `tag:marrus.xyz,2018:activitymon::Capture`
++ URI: `https://www.monstr.pub/ns/monstrpub#Capture`
 + Extends: `as:Offer`
 + Properties: Inherits all properties from `as:Offer`
 
@@ -77,7 +77,7 @@ The `as:instrument` property **MAY** be used to indicate mechanisms of capture.
 
 ###  3.2 The `mon:Search` Activity
 
-+ URI: `tag:marrus.xyz,2018:activitymon::Search`
++ URI: `https://www.monstr.pub/ns/monstrpub#Search`
 + Extends: `as:Offer`
 + Properties: Inherits all properties from `as:Offer`
 
@@ -103,7 +103,7 @@ Processors **MUST** ignore any objects with more than one Mon Actor Type assigne
 
 ###  4.1 The `mon:Mon` Actor
 
-+ URI: `tag:marrus.xyz,2018:activitymon::Mon`
++ URI: `https://www.monstr.pub/ns/monstrpub#Mon`
 + Extends:
     + `rp:Effectual` | `rp:Perishable` | `rp:Performer` | `rp:Qualified` | `rp:Quantified` | `rp:Ranked`
 + Disjoint With:
@@ -154,7 +154,7 @@ The values of the `as:generator` property **MUST NOT** change over time.
 
 ###  4.2 The `mon:Route` Actor
 
-+ URI: `tag:marrus.xyz,2018:activitymon::Route`
++ URI: `https://www.monstr.pub/ns/monstrpub#Route`
 + Extends: `as:Object`
 + Disjoint With:
     + `mon:Mon` | `mon:Trainer`
@@ -177,7 +177,7 @@ Recognizing `mon:Route`s as Actors is **OPTIONAL** for processors.
 
 ###  4.3 The `mon:Trainer` Actor
 
-+ URI: `tag:marrus.xyz,2018:activitymon::Trainer`
++ URI: `https://www.monstr.pub/ns/monstrpub#Trainer`
 + Extends: `as:Object`
 + Disjoint With:
     + `mon:Mon` | `mon:Route`
@@ -195,11 +195,10 @@ In addition to the Mon Activity Types and the Mon Actor Types, the Mon Vocabular
 
 ###  5.1 The `mon:Item` Object
 
-+ URI: `tag:marrus.xyz,2018:activitymon::Item`
++ URI: `https://www.monstr.pub/ns/monstrpub#Item`
 + Extends:
     + `rp:Action` | `rp:Perishable`
-+ Properties:
-    + Inherits all properties from `as:Object`
++ Properties: Inherits all properties from `as:Object`
 
 Describes an item of some sort.
 
@@ -209,7 +208,7 @@ A longer description of the `mon:Item` **MAY** be provided via the `as:content` 
 
 ###  5.2 The `mon:Region` Object
 
-+ URI: `tag:marrus.xyz,2018:activitymon::Region`
++ URI: `https://www.monstr.pub/ns/monstrpub#Region`
 + Extends: `as:Object`
 + Properties:
     + `mon:dex` | `mon:routes`
@@ -236,7 +235,7 @@ The `mon:Species` and `mon:Route`s discoverable through these collections **SHOU
 
 ###  5.3 The `mon:Species` Object
 
-+ URI: `tag:marrus.xyz,2018:activitymon::Species`
++ URI: `https://www.monstr.pub/ns/monstrpub#Species`
 + Extends:
     + `rp:Qualified` | `rp:Quantified` | `rp:Role`
 + Properties: Inherits all properties from `rp:Qualified`, `rp:Quantified`, and `rp:Role`
@@ -259,7 +258,7 @@ Most of the properties on the `mon:Species` object are not directly inherited by
 
 ###  6.1 The `mon:dex` Property
 
-+ URI: `tag:marrus.xyz,2018:activitymon::dex`
++ URI: `https://www.monstr.pub/ns/monstrpub#dex`
 + Domain:
     + `mon:Region` | `mon:Route`
 + Range:
@@ -274,7 +273,7 @@ Upon encountering an object with more than one `mon:dex` value, processors **MUS
 
 ###  6.2 The `mon:mon` Property
 
-+ URI: `tag:marrus.xyz,2018:activitymon::mon`
++ URI: `https://www.monstr.pub/ns/monstrpub#mon`
 + Domain: `mon:Trainer`
 + Range: `as:Link`
 + Functional: True
@@ -290,7 +289,7 @@ Upon encountering an object with more than one `mon:mon` value, processors **MUS
 
 ###  6.3 The `mon:routes` Property
 
-+ URI: `tag:marrus.xyz,2018:activitymon::routes`
++ URI: `https://www.monstr.pub/ns/monstrpub#routes`
 + Domain:
     + `mon:Region` | `mon:Route`
 + Range:
@@ -307,6 +306,10 @@ Upon encountering an object with more than one `mon:routes` value, processors **
 
  >  This section is non-normative.
 
+#####  2018-05-01.
+
+ +  Renamed ActivityMon to MonStrPub with new URLs.
+
 #####  2018-04-21.
 
  +  Split off an extensive number of objects and properties to create the [Roleplaying Vocabulary][].
@@ -322,7 +325,7 @@ Upon encountering an object with more than one `mon:routes` value, processors **
 
 #####  2018-04-20.
 
- +  Split the [ActivityMon][] specification into two components: [Mon Vocabulary][] and [ActivityMon Core][].
+ +  Split the [ActivityMon][MonStrPub] specification into two components: [Mon Vocabulary][] and [ActivityMon Core][MonStrPub Core].
     ☞ [Issue #7](https://github.com/kibimon/activitymon/issues/7)
 
  +  Significant rewriting of sections for clarity and precision; fixed typos.
@@ -378,10 +381,10 @@ Upon encountering an object with more than one `mon:routes` value, processors **
  +  Initial specification.
 
 
-[Activity Vocabulary]:    <https://www.w3.org/TR/activitystreams-vocabulary/> "Activity Vocabulary"
-[ActivityMon]:            <https://kibimon.github.io/activitymon/>            "ActivityMon"
-[ActivityMon Core]:       <https://kibimon.github.io/activitymon/core/>       "ActivityMon Core"
-[ActivityStreams 2.0]:    <https://www.w3.org/TR/activitystreams-core/>       "Activity Streams 2.0"
-[Mon Vocabulary]:         <https://kibimon.github.io/activitymon/vocabulary/> "Mon Vocabulary"
-[RFC2119]:                <https://tools.ietf.org/html/rfc2119>               "Key words for use in RFCs to Indicate Requirement Levels"
-[Roleplaying Vocabulary]: <https://kibimon.github.io/roleplaying/vocabulary/> "Roleplaying Vocabulary"
+[Activity Vocabulary]:    <https://www.w3.org/TR/activitystreams-vocabulary/>   "Activity Vocabulary"
+[ActivityStreams 2.0]:    <https://www.w3.org/TR/activitystreams-core/>         "Activity Streams 2.0"
+[Mon Vocabulary]:         <https://www.monstr.pub/spec/mon-vocabulary/>         "Mon Vocabulary"
+[MonStrPub]:              <https://www.monstr.pub/spec/monstrpub-overview/>     "MonStrPub"
+[MonStrPub Core]:         <https://www.monstr.pub/spec/monstrpub-core/>         "MonStrPub Core"
+[RFC2119]:                <https://tools.ietf.org/html/rfc2119>                 "Key words for use in RFCs to Indicate Requirement Levels"
+[Roleplaying Vocabulary]: <https://www.monstr.pub/spec/roleplaying-vocabulary/> "Roleplaying Vocabulary"
