@@ -19,7 +19,7 @@ This specification defines a basic set of requirements for assigning and handlin
 ###  1.1 Relationship to Other Specifications
 
 This document is an **OPTIONAL** part of the [MonStrPub][] set of specifications.
-Conform to this specification is **RECOMMENDED** for MonStrPub implementations which intend to set or handle the `rp:stat` properties on `mon:Mon`, or interact with `rp:Stat` or `rp:Attribute` objects.
+Conformance to this specification is **RECOMMENDED** for MonStrPub implementations which intend to set or handle the `rp:stat` properties on `mon:Mon`, or interact with `rp:Stat` or `rp:Attribute` objects.
 
 This document uses the vocabulary defined in the [Mon Vocabulary][] specification.
 This vocabulary itself depends on that defined in the [Roleplaying Vocabulary][] specification.
@@ -120,7 +120,7 @@ Processors **MAY** refuse to fetch `rp:class` links which do not share an origin
 
 Multiple stats may share the same `rp:class`.
 However, two `rp:Stat`s assigned to a `mon:Mon` or `mon:Species` **MUST NOT** share the same `rp:class` if they are both of the same Mon Stat Type.
-Servers **SHOULD** average the `rp:level` of any such conflicting `rp:Stat`s when processing.
+Upon encountering any such conflicting `rp:Stat`s, servers **MUST** ignore all but the one with the lowest value for `rp:level`.
 
 ###  4.4 Stat Levels
 
@@ -275,16 +275,16 @@ Given a `mon:Mon` and an `rp:Attribute`:
 
 2.  Define the starting variables for our equation:
 
-    1.  If `S` is defined, let `b` equal the `rp:level` of the `rp:BaseStat` assigned to `S` via the `rp:stat` property, whose `rp:class` points to `rp:Attribute`, if present and valid.
-        If `S` is not defined, or no such `rp:Stat` object exists, set `b` equal to zero.
+    1.  If `S` is defined, let `b` equal the `rp:level` of the `mon:BaseStat` assigned to `S` via the `rp:stat` property, whose `rp:class` points to the `rp:Attribute`, if present and valid.
+        If `S` is not defined, or no such `rp:Stat` object exists, set `b` equal to 0.
 
-    2.  Let `e` equal the `rp:level` of the `rp:ExpStat` of the `rp:Mon` whose `rp:class` points to `rp:Attribute`, if present and valid, or zero otherwise.
+    2.  Let `e` equal the `rp:level` of the `mon:ExpStat` of the `rp:Mon` whose `rp:class` points to the `rp:Attribute`, if present and valid, or 0 otherwise.
 
-    3.  Let `i` equal the `rp:level` of the `rp:IndStat` of the `rp:Mon` whose `rp:class` points to `rp:Attribute`, if present and valid, or zero otherwise.
+    3.  Let `i` equal the `rp:level` of the `mon:IndStat` of the `rp:Mon` whose `rp:class` points to the `rp:Attribute`, if present and valid, or 0 otherwise.
 
-    4.  Let `l` equal the `rp:level` of the `mon:Mon` itself, if present and valid, or one otherwise.
+    4.  Let `l` equal the `rp:level` of the `mon:Mon` itself, if present and valid, or 1 otherwise.
 
-    5.  Let `n` equal the product of any stat adjustments defined by external specifications, or one if no such adjustments apply.
+    5.  Let `n` equal the product of any stat adjustments defined by external specifications, or 1 if no such adjustments apply.
 
 3.  Calculate the value of our stat:
 
@@ -406,6 +406,13 @@ When cloning `mon:Mon` or `mon:Species` from another server which does not speci
 ##  9. Changelog  ##
 
  >  This section is non-normative.
+
+#####  2018-05-05.
+
+ +  Changed the requirements regarding the processing of conflicting stats.
+    The old recommendation was to average, not take the lowest-levelled one.
+
+ +  Fixed typos.
 
 #####  2018-05-01 (2).
 

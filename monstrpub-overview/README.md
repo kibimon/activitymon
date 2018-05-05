@@ -39,6 +39,9 @@ Conforming MonStrPub implementations **MUST** meet the appropriate conformance r
 
 The following specifications are **OPTIONAL** for conforming MonStrPub support:
 
+ +  **[MonStrPub Capsule Captures][]**:
+    Describes conformance requirements for handling `mon:Capture` actions on a probabilistic basis, making use of a new item type, `mon:Capsule`.
+
  +  **[MonStrPub Levels][]**:
     Describes conformance requirements for representing mon that can gain experience and change levels.
 
@@ -49,6 +52,10 @@ The following specifications are **OPTIONAL** for conforming MonStrPub support:
 ##  4. Changelog  ##
 
  >  This section is non-normative.
+
+#####  2018-05-05.
+
+ +  Added [MonStrPub Capsule Captures][] as an optional specification.
 
 #####  2018-05-01.
 
@@ -71,13 +78,14 @@ The following specifications are **OPTIONAL** for conforming MonStrPub support:
     ☞ [Issue #7](https://github.com/kibimon/activitymon/issues/7)
 
 
-[Activity Vocabulary]:    <https://www.w3.org/TR/activitystreams-vocabulary/>   "Activity Vocabulary"
-[ActivityPub]:            <https://www.w3.org/TR/activitypub/>                  "ActivityPub"
-[Mon Vocabulary]:         <https://www.monstr.pub/spec/mon-vocabulary/>         "Mon Vocabulary"
-[MonStrPub]:              <https://www.monstr.pub/spec/monstrpub-overview/>     "MonStrPub"
-[MonStrPub Core]:         <https://www.monstr.pub/spec/monstrpub-core/>         "MonStrPub Core"
-[MonStrPub Levels]:       <https://www.monstr.pub/spec/monstrpub-levels/>       "MonStrPub Levels"
-[MonStrPub Stats]:        <https://www.monstr.pub/spec/monstrpub-stats/>        "MonStrPub Stats"
-[RFC2119]:                <https://tools.ietf.org/html/rfc2119>                 "Key words for use in RFCs to Indicate Requirement Levels"
-[RPPub]:                  <https://www.monstr.pub/spec/rppub-overview/>         "RPPub"
-[Roleplaying Vocabulary]: <https://www.monstr.pub/spec/roleplaying-vocabulary/> "Roleplaying Vocabulary"
+[Activity Vocabulary]:        <https://www.w3.org/TR/activitystreams-vocabulary/>   "Activity Vocabulary"
+[ActivityPub]:                <https://www.w3.org/TR/activitypub/>                  "ActivityPub"
+[Mon Vocabulary]:             <https://www.monstr.pub/spec/mon-vocabulary/>         "Mon Vocabulary"
+[MonStrPub]:                  <https://www.monstr.pub/spec/monstrpub-overview/>     "MonStrPub"
+[MonStrPub Capsule Captures]: <https://www.monstr.pub/spec/monstrpub-capsules/>     "MonStrPub Capsule Captures"
+[MonStrPub Core]:             <https://www.monstr.pub/spec/monstrpub-core/>         "MonStrPub Core"
+[MonStrPub Levels]:           <https://www.monstr.pub/spec/monstrpub-levels/>       "MonStrPub Levels"
+[MonStrPub Stats]:            <https://www.monstr.pub/spec/monstrpub-stats/>        "MonStrPub Stats"
+[RFC2119]:                    <https://tools.ietf.org/html/rfc2119>                 "Key words for use in RFCs to Indicate Requirement Levels"
+[RPPub]:                      <https://www.monstr.pub/spec/rppub-overview/>         "RPPub"
+[Roleplaying Vocabulary]:     <https://www.monstr.pub/spec/roleplaying-vocabulary/> "Roleplaying Vocabulary"

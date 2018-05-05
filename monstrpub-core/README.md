@@ -114,6 +114,7 @@ To clone a `rp:Class`, a server **SHOULD** take the following steps:
  >  **Note:**
     The following types all extend `rp:Class`:
 
+    + `mon:Item`
     + `mon:Species`
     + `rp:Attribute`
     + `rp:Role`
@@ -165,15 +166,9 @@ However, `as:Undo`s **MAY** be generated for these activities while they are sti
 
 The `mon:Capture` activity makes an attempt to capture a mon.
 
-Upon receiving a `mon:Capture` activity in an **outbox**, servers **SHOULD**, at minimum, decrement the value of the `rp:health` property on any `mon:Item` or `mon:Learned` objects in the `as:instrument`, if present, valid, and nonzero.
-Servers **MAY** wait to apply these effects until after an `as:Accept` activity is subsequently received with this `mon:Capture` activity as its `as:object`.
-
 ###  4.6 The `mon:Search` Activity
 
 The `mon:Search` activity makes an attempt to capture a mon.
-
-Upon receiving a `mon:Search` activity in an **outbox**, servers **SHOULD**, at minimum, decrement the value of the `rp:health` property on any `mon:Item` or `mon:Learned` objects in the `as:instrument`, if present, valid, and nonzero.
-Servers **MAY** wait to apply these effects until after an `as:Accept` activity is subsequently received with this `mon:Search` activity as its `as:object`.
 
 ##  4. Server to Server Interactions  ##
 
@@ -209,7 +204,7 @@ A `mon:Capture` activity attempts to capture a mon.
 Upon receiving a `mon:Capture` activity in an **inbox**, a server should generate either an `as:Accept` or `as:Reject` activity with the `mon:Capture` as the `as:object` and deliver it to the `as:actor` of the `as:Capture`.
 A server **MUST** send an `as:Reject` for any `mon:Capture` whose `as:object` is a `mon:Mon` that is already associated with an owner.
 
-In the case of receiving an `as:Accept` referencing this `mon:Capture` as the `as:object`, for which the `as:actor` is a `mon:Trainer` and the `as:object` is a `mon:Mon`,  the server **SHOULD** perform the following steps:
+In the case of receiving an `as:Accept` referencing this `mon:Capture` as the `as:object`, for which the `as:actor` is a `mon:Trainer` controlled by the server and the `as:object` is a `mon:Mon`, the server **SHOULD** perform the following steps:
 
 1.  Clone the `as:object` of the `as:actor` according to the steps for cloning `mon:Mon` outlined above.
 
@@ -235,12 +230,18 @@ Otherwise, the server **SHOULD** generate a `as:Reject` activity with the `rp:Us
 >  **Note:** A server might fail to understand the intended effects of a `rp:Use` activity if the `rp:Use` references an `mon:Item` that the server does not understand, or a `rp:Technique` has an unknown `rp:effect`.
 
 In the case of receiving an `as:Accept` referencing this `rp:Use` as the `as:object`, the server **SHOULD** apply any effects resulting from successful use.
-In particular, the server **SHOULD**, at minimum, decrement the value of the `rp:health` property on any `mon:Item` or `rp:Learned` objects in the `as:object`, if present, valid, and nonzero.
 In the case of an `as:Reject`, the server **SHOULD NOT** apply such effects.
 
 ##  5. Changelog  ##
 
  >  This section is non-normative.
+
+#####  2018-05-05.
+
+ +  Added `mon:Item` as a `rp:Class` extension.
+
+ +  Removed the requirements regarding adjusting the `rp:health` of `mon:Item`s after successful use, as these behaviours no longer fit within the new model.
+    Such behaviours should be discussed in a separate specification describing item use.
 
 #####  2018-05-01.
 

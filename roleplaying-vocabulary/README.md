@@ -169,10 +169,12 @@ A longer description of the `rp:Action` **MAY** be provided via the `as:content`
 
 + URI: `https://www.monstr.pub/ns/roleplaying#likelihood`
 + Domain: `rp:Action`
-+ Range: `xsd:float` [>= 0.0f, <=1.0f]
++ Range: `xsd:float` [>= 0.0f]
 + Functional: True
 
 Indicates the probability that an `rp:Action` will produce a result.
+A value of 0 indicates an impossible action, and a value of 1 indicates a guaranteed action.
+Values larger than 1 **MAY** be used as a multiplier if the success of the action depends on a number of factors.
 
 An object **MUST NOT** have more than one value for its `rp:likelihood` property.
 Upon encountering an object with more than one `rp:likelihood` value, processors **MUST** ignore all but the smallest one.
@@ -792,9 +794,20 @@ Indicates the potentially `rp:Learnable` techniques for a given `rp:Performer` o
 For `rp:Performer`s, this property is *additive*:
 Processors **SHOULD** consider both the `rp:Learnable` objects specified on a `rp:Performer`'s own `rp:learnset` property and those declared in that of its associated `rp:Role`(s), where applicable.
 
-##  13. Changelog  ##
+##  13. Extension  ##
+
+The types above are intended to be extended by other specifications.
+No requirements are made regarding this extension.
+
+##  14. Changelog  ##
 
  >  This section is non-normative.
+
+#####  2018-05-05.
+
+ +  Allowed `rp:likelihood` to be used as a multiplier in addition to an isolated value.
+
+ +  Added a section on extensibility.
 
 #####  2018-05-01.
 

@@ -18,7 +18,7 @@ This specification defines a basic set of requirements for assigning and handlin
 ###  1.1 Relationship to Other Specifications
 
 This document is an **OPTIONAL** part of the [MonStrPub][] set of specifications.
-Conform to this specification is **RECOMMENDED** for MonStrPub implementations which intend to set or handle the `rp:level` or `rp:experience` properties on `mon:Mon`.
+Conformance to this specification is **RECOMMENDED** for MonStrPub implementations which intend to set or handle the `rp:level` or `rp:experience` properties on `mon:Mon`.
 
 This document uses the vocabulary defined in the [Mon Vocabulary][] specification.
 This vocabulary itself depends on that defined in the [Roleplaying Vocabulary][] specification.
@@ -100,6 +100,10 @@ When cloning `mon:Mon` from another server which does not specify a `mon:level`,
 ##  4. Changelog  ##
 
  >  This section is non-normative.
+
+#####  2018-05-05.
+
+ +  Fixed typos.
 
 #####  2018-05-01.
 

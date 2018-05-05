@@ -108,7 +108,9 @@ Processors **MUST** ignore any objects with more than one Mon Actor Type assigne
     + `rp:Effectual` | `rp:Perishable` | `rp:Performer` | `rp:Qualified` | `rp:Quantified` | `rp:Ranked`
 + Disjoint With:
     + `mon:Route` | `mon:Trainer`
-+ Properties: Inherits all properties from `rp:Effectual`, `rp:Perishable`, `rp:Performer`, `rp:Qualified`, `rp:Quantified`, and `rp:Ranked`
++ Properties:
+    + `mon:captureRate`
+    + Inherits all properties from `rp:Effectual`, `rp:Perishable`, `rp:Performer`, `rp:Qualified`, `rp:Quantified`, and `rp:Ranked`
 
 Describes a mon.
 `mon:Mon` actors **MUST** also be assigned the `as:Person` type.
@@ -127,6 +129,7 @@ When processing a `mon:Mon` with an associated `mon:Species`, processors **SHOUL
 + `as:image`
 + `as:name`
 + `as:summary`
++ `mon:captureRate`
 + `rp:growth`
 
 If one or more `rp:Affinity` objects are provided via the `rp:quality` property on an associated `mon:Species`, but *no* `rp:Affinity` is provided via the same property on a given `mon:Mon`, processors **SHOULD** treat the `mon:Mon` as though those objects had been provided on its `rp:quality` property as well.
@@ -140,17 +143,17 @@ The owner of a `mon:Mon` **MUST NOT** change over time.
 
 Information regarding the capture of a `mon:Mon` **MAY** be provided via the `as:generator` property, including:
 
-+ A `mon:Item` used in the capture
-+ A `mon:Region` and/or `mon:Route` where the capture took place
++ One or more `mon:Item`s used in the capture
++ A `mon:Region` and/or a `mon:Route` where the capture took place
 + A `mon:Trainer` responsible for the capture
 
 These may be provided directly or as links.
 
-The `as:generator` property of a `mon:Mon` **MUST NOT** have, or link to, more than one of the above objects which share the same type.
+The `as:generator` property of a `mon:Mon` **MUST NOT** have, or link to, more than one `mon:Region`, `mon:Route`, or `mon:Trainer`.
 Upon encountering a `mon:Mon` with multiple such objects present or linked to as `as:generator` values, processors **MUST** ignore all but one.
 The values of the `as:generator` property **MUST NOT** change over time.
 
-`mon:Item`s **MAY** be attached to a `mon:Mon` (*held*) via the `as:attachment` property.
+`mon:ItemSlot`s **MAY** be attached to a `mon:Mon` (*held*) via the `as:attachment` property.
 
 ###  4.2 The `mon:Route` Actor
 
@@ -189,6 +192,8 @@ Describes a potential owner, or *trainer*, of mon.
 `mon:Trainer` actors **MUST** also be assigned the `as:Person` type.
 Only `mon:Trainer`s are able to own mon.
 
+`mon:ItemSlot`s **MAY** be attached to a `mon:Trainer` (*held*) via the `as:attachment` property.
+
 ##  5. Mon Object Types  ##
 
 In addition to the Mon Activity Types and the Mon Actor Types, the Mon Vocabulary includes the following Mon Object Types:
@@ -197,16 +202,48 @@ In addition to the Mon Activity Types and the Mon Actor Types, the Mon Vocabular
 
 + URI: `https://www.monstr.pub/ns/monstrpub#Item`
 + Extends:
-    + `rp:Action` | `rp:Perishable`
-+ Properties: Inherits all properties from `as:Object`
+    + `rp:Action` | `rp:Class`
++ Properties: Inherits all properties from `rp:Action` and `rp:Class`
 
-Describes an item of some sort.
+Describes a class of item of some sort.
 
 An `as:name` **SHOULD** be provided for all `mon:Item`s.
 A short description or explanation of the `mon:Item` **MAY** be provided via the `as:summary` property.
 A longer description of the `mon:Item` **MAY** be provided via the `as:content` property.
 
-###  5.2 The `mon:Region` Object
+###  5.2 The `mon:ItemSlot` Object
+
++ URI: `https://www.monstr.pub/ns/monstrpub#ItemSlot`
++ Extends:
+    + `rp:Action` | `rp:Instance` | `rp:Perishable`
++ Properties: Inherits all properties from `rp:Action`, `rp:Instance`, and `rp:Perishable`
+
+Describes one or more identical instances of a `mon:Item`.
+
+The `rp:class` property **MAY** be used to specify the class of a `mon:ItemSlot`, which **MUST** be a `mon:Item`.
+`mon:ItemSlot`s **MUST NOT** have more than one `rp:class`.
+Processors **MUST** ignore all values of `rp:class` if there are more than one, or if they do not point to a `mon:Item` object.
+
+To ensure that the `mon:Item` is always able to be dereferenced, `rp:class` links **SHOULD** point to files on the same server as the associated `mon:ItemSlot`.
+Processors **MAY** refuse to fetch `rp:class` links which do not share an origin with a given `mon:ItemSlot`.
+
+When processing a `mon:ItemSlot` with an associated `mon:Item`, processors **SHOULD** use values from the associated `mon:ItemSlot` if the following properties are not specified on the `mon:Item`:
+
++ `as:content`
++ `as:icon`
++ `as:image`
++ `as:name`
++ `as:summary`
++ `rp:likelihood`
++ `rp:maxHealth`
++ `rp:power`
+
+The `rp:health` property describes how many times the items described by the `mon:ItemSlot` are able to be used.
+For single-use items, this is the number of items being described.
+For multi-use items, this is the number of uses remaining for the item.
+Items which may be used more than once **SHOULD** each be given their own `mon:ItemSlot` object.
+
+###  5.3 The `mon:Region` Object
 
 + URI: `https://www.monstr.pub/ns/monstrpub#Region`
 + Extends: `as:Object`
@@ -233,12 +270,14 @@ The ordering of existing items in a `mon:routes` collection **SHOULD NOT** chang
 All of the objects in the `as:OrderedCollection`s described above **SHOULD** be located on the same server as the given `mon:Region`.
 The `mon:Species` and `mon:Route`s discoverable through these collections **SHOULD** reference this `mon:Region` in their `as:assignedTo`.
 
-###  5.3 The `mon:Species` Object
+###  5.4 The `mon:Species` Object
 
 + URI: `https://www.monstr.pub/ns/monstrpub#Species`
 + Extends:
     + `rp:Qualified` | `rp:Quantified` | `rp:Role`
-+ Properties: Inherits all properties from `rp:Qualified`, `rp:Quantified`, and `rp:Role`
++ Properties:
+    + `mon:captureRate`
+    + Inherits all properties from `rp:Qualified`, `rp:Quantified`, and `rp:Role`
 
 Describes a variety, or *species*, of mon.
 
@@ -256,7 +295,21 @@ Most of the properties on the `mon:Species` object are not directly inherited by
 
 ##  6. Properties  ##
 
-###  6.1 The `mon:dex` Property
+###  6.1 The `mon:captureRate` Property
+
++ URI: `https://www.monstr.pub/ns/monstrpub#captureRate`
++ Domain:
+    + `mon:Mon` | `mon:Species`
++ Range: `xsd:float` [>= 0.0f]
++ Functional: True
+
+Provides an estimation of the base likelihood of capturing a `mon:Mon` under ideal conditions, as a float from 0 (impossible) to 1 (guaranteed).
+Note that this is merely an estimate, and servers **MAY** take a number of factors into account when determining the success of a capture.
+
+An object **MUST NOT** have more than one value for its `mon:captureRate` property.
+Upon encountering an object with more than one `mon:captureRate` value, processors **MUST** ignore all but the smallest one.
+
+###  6.2 The `mon:dex` Property
 
 + URI: `https://www.monstr.pub/ns/monstrpub#dex`
 + Domain:
@@ -271,7 +324,7 @@ For `mon:Region`s, this **MUST** be an `as:OrderedCollection`.
 An object **MUST NOT** have more than one value for its `mon:dex` property.
 Upon encountering an object with more than one `mon:dex` value, processors **MUST** ignore all values; that is, treat the object as if *no* `mon:dex` property had been defined.
 
-###  6.2 The `mon:mon` Property
+###  6.3 The `mon:mon` Property
 
 + URI: `https://www.monstr.pub/ns/monstrpub#mon`
 + Domain: `mon:Trainer`
@@ -287,7 +340,7 @@ The ordering of items within the `as:OrderedCollection` **MAY** change over time
 An object **MUST NOT** have more than one value for its `mon:mon` property.
 Upon encountering an object with more than one `mon:mon` value, processors **MUST** ignore all values; that is, treat the object as if *no* `mon:mon` property had been defined.
 
-###  6.3 The `mon:routes` Property
+###  6.4 The `mon:routes` Property
 
 + URI: `https://www.monstr.pub/ns/monstrpub#routes`
 + Domain:
@@ -302,9 +355,27 @@ For `mon:Region`s, this **MUST** be an `as:OrderedCollection`.
 An object **MUST NOT** have more than one value for its `mon:routes` property.
 Upon encountering an object with more than one `mon:routes` value, processors **MUST** ignore all values; that is, treat the object as if *no* `mon:routes` property had been defined.
 
-##  7. Changelog  ##
+##  7. Extension  ##
+
+The types above may be extended by other specifications.
+However, any objects whose type extends one of the above types **MUST** also declare the base type, as listed above, to ensure cross-compatibility with other servers.
+Similarly, if a server uses types from other vocabularies which overlap with one of the above types, the MonStrPub type **MUST** also be specified.
+
+##  8. Changelog  ##
 
  >  This section is non-normative.
+
+#####  2018-05-05.
+
+ +  Added the `mon:captureRate` property to `mon:Species` and `mon:Mon`.
+
+ +  Added `mon:Item` as a `rp:Class` extension, with `rp:Instance`s of type `mon:ItemSlot`.
+
+ +  Clarified that `mon:Trainer`s can also hold items.
+
+ +  Allowed multiple `mon:Item`s to be assigned to the `as:generator` property of `mon:Mon`.
+
+ +  Added a section on extensibility.
 
 #####  2018-05-01.
 
