@@ -149,9 +149,13 @@ Information regarding the capture of a `mon:Mon` **MAY** be provided via the `as
 
 These may be provided directly or as links.
 
-The `as:generator` property of a `mon:Mon` **MUST NOT** have, or link to, more than one `mon:Region`, `mon:Route`, or `mon:Trainer`.
+The `as:generator` property of a `mon:Mon` **MUST NOT** have, or link to, more than one of each of `mon:Region`s, `mon:Route`s, or `mon:Trainer`s.
 Upon encountering a `mon:Mon` with multiple such objects present or linked to as `as:generator` values, processors **MUST** ignore all but one.
 The values of the `as:generator` property **MUST NOT** change over time.
+
+The `mon:Region` of a `mon:Mon` **MAY** be provided, or linked to, using the `as:attributedTo` property.
+Each `mon:Mon` **MUST NOT** have more than one associated `mon:Region`.
+Upon encountering a `mon:Mon` with multiple associated `mon:Region`s, processors **MUST** ignore *all* of them, and treat the `mon:Mon` as though no `mon:Region` was specified.
 
 `mon:ItemSlot`s **MAY** be attached to a `mon:Mon` (*held*) via the `as:attachment` property.
 
@@ -172,7 +176,7 @@ An `as:name` **SHOULD** be provided for all `mon:Route`s, naming the route.
 A tagline for the `mon:Route` **MAY** be provided via the `as:summary` property.
 A longer description of the `mon:Route` **MAY** be provided via the `as:content` property.
 
-The `mon:Region` of a `mon:Route` **MAY** be provided, or linked to, using the `as:assignedTo` property.
+The `mon:Region` of a `mon:Route` **MAY** be provided, or linked to, using the `as:attributedTo` property.
 Each `mon:Route` **MUST NOT** have more than one associated `mon:Region`.
 Upon encountering a `mon:Route` with multiple associated `mon:Region`s, processors **MUST** ignore *all* of them, and treat the `mon:Route` as though no `mon:Region` was specified.
 
@@ -191,6 +195,10 @@ Recognizing `mon:Route`s as Actors is **OPTIONAL** for processors.
 Describes a potential owner, or *trainer*, of mon.
 `mon:Trainer` actors **MUST** also be assigned the `as:Person` type.
 Only `mon:Trainer`s are able to own mon.
+
+The `mon:Region` of a `mon:Trainer` **MAY** be provided, or linked to, using the `as:attributedTo` property.
+Each `mon:Trainer` **MUST NOT** have more than one associated `mon:Region`.
+Upon encountering a `mon:Trainer` with multiple associated `mon:Region`s, processors **MUST** ignore *all* of them, and treat the `mon:Trainer` as though no `mon:Region` was specified.
 
 `mon:ItemSlot`s **MAY** be attached to a `mon:Trainer` (*held*) via the `as:attachment` property.
 
@@ -248,12 +256,15 @@ Items which may be used more than once **SHOULD** each be given their own `mon:I
 + URI: `https://www.monstr.pub/ns/monstrpub#Region`
 + Extends: `as:Object`
 + Properties:
-    + `mon:dex` | `mon:routes`
+    + `mon:dex` | `mon:routes` | `mon:supports`
     + Inherits all properties from `as:Object`
 
 Describes a region.
 Regions are objects which **MAY** be used to discover different `mon:Species` or `mon:Routes`.
 `mon:Region`s which correspond to real-world locations **MUST** also be assigned the `as:Place` type.
+
+The `mon:supports` property may be used to indicate extensions which are supported by objects associated with the `mon:Region`.
+All objects which reference this `mon:Region` in their `as:attributedTo` **SHOULD** support any such extensions.
 
 An `as:name` **SHOULD** be provided for all `Region`s.
 A tagline for the `mon:Region` **MAY** be provided via the `as:summary` property.
@@ -268,7 +279,7 @@ New `mon:Route` objects **SHOULD** only be added to the *end* of this collection
 The ordering of existing items in a `mon:routes` collection **SHOULD NOT** change over time.
 
 All of the objects in the `as:OrderedCollection`s described above **SHOULD** be located on the same server as the given `mon:Region`.
-The `mon:Species` and `mon:Route`s discoverable through these collections **SHOULD** reference this `mon:Region` in their `as:assignedTo`.
+The `mon:Species` and `mon:Route`s discoverable through these collections **SHOULD** reference this `mon:Region` in their `as:attributedTo`.
 
 ###  5.4 The `mon:Species` Object
 
@@ -285,7 +296,7 @@ An `as:name` **SHOULD** be provided for all `mon:Species`.
 A tagline, or short description, for the `mon:Species` **MAY** be provided via the `as:summary` property.
 A longer description of the `mon:Species` **MAY** be provided via the `as:content` property.
 
-The `mon:Region` of a `mon:Species` **MAY** be provided, or linked to, using the `as:assignedTo` property.
+The `mon:Region` of a `mon:Species` **MAY** be provided, or linked to, using the `as:attributedTo` property.
 Each `mon:Species` **MUST NOT** have more than one associated `mon:Region` property.
 Upon encountering a `mon:Species` with multiple associated `mon:Region`s, processors **MUST** ignore *all* of them, and treat the `mon:Species` as though no `mon:Region` was specified.
 
@@ -355,6 +366,15 @@ For `mon:Region`s, this **MUST** be an `as:OrderedCollection`.
 An object **MUST NOT** have more than one value for its `mon:routes` property.
 Upon encountering an object with more than one `mon:routes` value, processors **MUST** ignore all values; that is, treat the object as if *no* `mon:routes` property had been defined.
 
+###  6.5 The `mon:supports` Property
+
++ URI: `https://www.monstr.pub/ns/monstrpub#routes`
++ Domain:
+    + `mon:Region`
++ Range:
+    + `xsd:anyURI`
++ Functional: True
+
 ##  7. Extension  ##
 
 The types above may be extended by other specifications.
@@ -364,6 +384,14 @@ Similarly, if a server uses types from other vocabularies which overlap with one
 ##  8. Changelog  ##
 
  >  This section is non-normative.
+
+#####  2018-05-05 (2).
+
+ +  `mon:Region`s are now always assigned via the `as:location` property.
+
+ +  Added the `mon:supports` property to `mon:Region`s for determining supported extensions.
+
+ +  General edits.
 
 #####  2018-05-05.
 
