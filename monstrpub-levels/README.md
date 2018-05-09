@@ -40,6 +40,12 @@ Note that in [ActivityStreams 2.0][] documents, this prefix **MUST** be declared
 
  >  As this is still a draft specification, the above URIs may change at some point in the future.
 
+###  1.3 Indicating Support
+
+Regional support for this extension may be indicated by including the following URI in the `mon:supports` property of a `mon:Region`:
+
+    https://www.monstr.pub/spec/monstrpub-levels
+
 ##  2. Conformance  ##
 
 All sections explicitly marked as non-normative, as well as any diagrams, examples, or notes in this specification, are non-normative.
@@ -100,6 +106,10 @@ When cloning `mon:Mon` from another server which does not specify a `mon:level`,
 ##  4. Changelog  ##
 
  >  This section is non-normative.
+
+#####  2018-05-08.
+
+ +  Added a section on indicating support for this specification.
 
 #####  2018-05-05.
 

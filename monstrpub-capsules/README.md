@@ -41,6 +41,12 @@ Note that in [ActivityStreams 2.0][] documents, this prefix **MUST** be declared
 
  >  As this is still a draft specification, the above URIs may change at some point in the future.
 
+###  1.3 Indicating Support
+
+Regional support for this extension may be indicated by including the following URI in the `mon:supports` property of a `mon:Region`:
+
+    https://www.monstr.pub/spec/monstrpub-capsules
+
 ##  2. Conformance  ##
 
 All sections explicitly marked as non-normative, as well as any diagrams, examples, or notes in this specification, are non-normative.
@@ -61,7 +67,7 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHOULD**, **SHOULD NOT**, 
  >  This section is non-normative.
 
 A *capsule capture* is an attempt to `mon:Capture` a `mon:Mon` by use of a special `mon:Item`, of type `mon:Capsule`.
-`mon:Capsule`s do not have a guaranteed success rate—rather, they have a success ratio, which is taken into account in combination with that of the `mon:Mon` being captured.
+`mon:Capsule`s are not guaranteed to be successful—rather, they have an associated likelihood of success, which is taken into account in combination with that of the `mon:Mon` being captured.
 
 ###  3.2 Creating a Capsule Capture
 
@@ -135,6 +141,12 @@ Given a `mon:Capture` for which the `as:actor` is a `mon:Trainer` and the `as:ob
 ##  6. Changelog  ##
 
  >  This section is non-normative.
+
+#####  2018-05-08.
+
+ +  Added a section on indicating support for this specification.
+
+ +  Minor edits.
 
 #####  2018-05-05.
 
