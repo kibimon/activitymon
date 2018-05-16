@@ -1,25 +1,15 @@
-{::comment}  Related Links  {:/comment}
-
 [KibiMon]: <https://www.monstr.pub/kibimon/> "KibiMon"
 
 
 
-{::comment}  Specifications  {:/comment}
-
 [RFC2119]: <https://tools.ietf.org/html/rfc2119> "Key words for use in RFCs to Indicate Requirement Levels"
-
-{::comment}  + ActivityPub  {:/comment}
 
 [Activity Vocabulary]: <https://www.w3.org/TR/activitystreams-vocabulary/>   "Activity Vocabulary"
 [ActivityPub]:         <https://www.w3.org/TR/activitypub/>                  "ActivityPub"
 [ActivityStreams 2.0]: <https://www.w3.org/TR/activitystreams-core/>         "Activity Streams 2.0"
 
-{::comment}  + RPPub  {:/comment}
-
 [Roleplaying Vocabulary]: <https://www.monstr.pub/spec/roleplaying-vocabulary/> "Roleplaying Vocabulary"
 [RPPub]:                  <https://www.monstr.pub/spec/rppub-overview/>         "RPPub"
-
-{::comment}  + MonStrPub  {:/comment}
 
 [Mon Vocabulary]:             <https://www.monstr.pub/spec/mon-vocabulary/>     "Mon Vocabulary"
 [MonStrPub]:                  <https://www.monstr.pub/spec/monstrpub-overview/> "MonStrPub"
@@ -29,8 +19,6 @@
 [MonStrPub Stats]:            <https://www.monstr.pub/spec/monstrpub-stats/>    "MonStrPub Stats"
 
 
-
-{::comment}  JSON-LD Keywords  {:/comment}
 
 [`@base`]: <https://json-ld.org/spec/latest/json-ld/#syntax-tokens-and-keywords> "JSON-LD § Syntax Tokens and Keywords"
 [`@container`]: <https://json-ld.org/spec/latest/json-ld/#syntax-tokens-and-keywords> "JSON-LD § Syntax Tokens and Keywords"
@@ -52,10 +40,6 @@
 
 
 
-{::comment}  XML Schema Definition Datatypes  {:/comment}
-
-{::comment}  + Primitive datatypes  {:/comment}
-
 [`xsd:string`]:       <https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#string>
 [`xsd:boolean`]:      <https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#boolean>
 [`xsd:decimal`]:      <https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#decimal>
@@ -74,8 +58,6 @@
 [`xsd:anyURI`]:       <https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#anyURI>
 [`xsd:QName`]:        <https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#QName>
 [`xsd:NOTATION`]:     <https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#NOTATION>
-
-{::comment}  + Derived datatypes  {:/comment}
 
 [`xsd:normalizedString`]:   <https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#normalizedString>
 [`xsd:token`]:              <https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/datatypes.html#token>
@@ -105,10 +87,6 @@
 
 
 
-{::comment}  ActivityStreams Types  {:/comment}
-
-{::comment}  + Objects  {:/comment}
-
 [`as:Activity`]:              <https://www.w3.org/TR/activitystreams-vocabulary#dfn-activity>
 [`as:Application`]:           <https://www.w3.org/TR/activitystreams-vocabulary#dfn-application>
 [`as:Article`]:               <https://www.w3.org/TR/activitystreams-vocabulary#dfn-article>
@@ -134,8 +112,6 @@
 [`as:Service`]:               <https://www.w3.org/TR/activitystreams-vocabulary#dfn-service>
 [`as:Tombstone`]:             <https://www.w3.org/TR/activitystreams-vocabulary#dfn-tombstone>
 [`as:Video`]:                 <https://www.w3.org/TR/activitystreams-vocabulary#dfn-video>
-
-{::comment}  + Activities  {:/comment}
 
 [`as:Accept`]:          <https://www.w3.org/TR/activitystreams-vocabulary#dfn-accept>
 [`as:Add`]:             <https://www.w3.org/TR/activitystreams-vocabulary#dfn-add>
@@ -165,16 +141,12 @@
 [`as:Update`]:          <https://www.w3.org/TR/activitystreams-vocabulary#dfn-update>
 [`as:View`]:            <https://www.w3.org/TR/activitystreams-vocabulary#dfn-view>
 
-{::comment}  + Links and Relationships  {:/comment}
-
 [`as:Link`]:         <https://www.w3.org/TR/activitystreams-vocabulary#dfn-link>
 [`as:Mention`]:      <https://www.w3.org/TR/activitystreams-vocabulary#dfn-link>
 [`as:IsFollowing`]:  <https://www.w3.org/TR/activitystreams-vocabulary#dfn-link>
 [`as:IsFollowedBy`]: <https://www.w3.org/TR/activitystreams-vocabulary#dfn-link>
 [`as:IsContact`]:    <https://www.w3.org/TR/activitystreams-vocabulary#dfn-link>
 [`as:IsMember`]:     <https://www.w3.org/TR/activitystreams-vocabulary#dfn-link>
-
-{::comment}  + Property definitions  {:/comment}
 
 [`as:subject`]:              <https://www.w3.org/TR/activitystreams-vocabulary#dfn-subject>
 [`as:relationship`]:         <https://www.w3.org/TR/activitystreams-vocabulary#dfn-relationship>
@@ -250,8 +222,6 @@
 [`as:formerType`]:           <https://www.w3.org/TR/activitystreams-vocabulary#dfn-formertype>
 [`as:deleted`]:              <https://www.w3.org/TR/activitystreams-vocabulary#dfn-deleted>
 
-{::comment}  + ActivityPub  {:/comment}
-
 [`as:endpoints`]:                  <https://www.w3.org/TR/activitypub#endpoints>
 [`as:following`]:                  <https://www.w3.org/TR/activitypub#following-property>
 [`as:followers`]:                  <https://www.w3.org/TR/activitypub#followers-property>
@@ -273,23 +243,15 @@
 
 
 
-{::comment}  RPPub Types  {:/comment}
-
-{::comment}  + Activities  {:/comment}
-
 [`rp:Affect`]: <https://www.monstr.pub/spec/roleplaying-vocabulary/#activities.Affect>
 [`rp:Evolve`]: <https://www.monstr.pub/spec/roleplaying-vocabulary/#activities.Evolve>
 [`rp:Learn`]:  <https://www.monstr.pub/spec/roleplaying-vocabulary/#activities.Learn>
 [`rp:Teach`]:  <https://www.monstr.pub/spec/roleplaying-vocabulary/#activities.Teach>
 [`rp:Use`]:    <https://www.monstr.pub/spec/roleplaying-vocabulary/#activities.Use>
 
-{::comment}  + Actions  {:/comment}
-
 [`rp:Action`]:     <https://www.monstr.pub/spec/roleplaying-vocabulary/#activities.Action>
 [`rp:likelihood`]: <https://www.monstr.pub/spec/roleplaying-vocabulary/#activities.likelihood>
 [`rp:power`]:      <https://www.monstr.pub/spec/roleplaying-vocabulary/#activities.power>
-
-{::comment}  + Classes  {:/comment}
 
 [`rp:Class`]:       <https://www.monstr.pub/spec/roleplaying-vocabulary/#classes.Class>
 [`rp:ClassChange`]: <https://www.monstr.pub/spec/roleplaying-vocabulary/#classes.ClassChange>
@@ -297,13 +259,9 @@
 [`rp:becomes`]:     <https://www.monstr.pub/spec/roleplaying-vocabulary/#classes.becomes>
 [`rp:class`]:       <https://www.monstr.pub/spec/roleplaying-vocabulary/#classes.class>
 
-{::comment}  + Effects  {:/comment}
-
 [`rp:Effect`]:    <https://www.monstr.pub/spec/roleplaying-vocabulary/#effects.Effect>
 [`rp:Effectual`]: <https://www.monstr.pub/spec/roleplaying-vocabulary/#effects.Effectual>
 [`rp:effect`]:    <https://www.monstr.pub/spec/roleplaying-vocabulary/#effects.effect>
-
-{::comment}  + Levels  {:/comment}
 
 [`rp:GrowthFunc`]: <https://www.monstr.pub/spec/roleplaying-vocabulary/#levels.GrowthFunc>
 [`rp:Ranked`]:     <https://www.monstr.pub/spec/roleplaying-vocabulary/#levels.Ranked>
@@ -315,13 +273,9 @@
 [`rp:n2`]:         <https://www.monstr.pub/spec/roleplaying-vocabulary/#levels.n2>
 [`rp:n3`]:         <https://www.monstr.pub/spec/roleplaying-vocabulary/#levels.n3>
 
-{::comment}  + Perishables  {:/comment}
-
 [`rp:Perishable`]: <https://www.monstr.pub/spec/roleplaying-vocabulary/#perishables.Perishable>
 [`rp:health`]:     <https://www.monstr.pub/spec/roleplaying-vocabulary/#perishables.health>
 [`rp:maxHealth`]:  <https://www.monstr.pub/spec/roleplaying-vocabulary/#perishables.maxHealth>
-
-{::comment}  + Qualities  {:/comment}
 
 [`rp:Ability`]:    <https://www.monstr.pub/spec/roleplaying-vocabulary/#qualities.Ability>
 [`rp:Affinity`]:   <https://www.monstr.pub/spec/roleplaying-vocabulary/#qualities.Affinity>
@@ -335,20 +289,14 @@
 [`rp:matchup`]:    <https://www.monstr.pub/spec/roleplaying-vocabulary/#qualities.matchup>
 [`rp:quality`]:    <https://www.monstr.pub/spec/roleplaying-vocabulary/#qualities.quality>
 
-{::comment}  + Scopes  {:/comment}
-
 [`rp:Scoped`]:   <https://www.monstr.pub/spec/roleplaying-vocabulary/#scopes.Scoped>
 [`rp:maxLevel`]: <https://www.monstr.pub/spec/roleplaying-vocabulary/#scopes.maxLevel>
 [`rp:minLevel`]: <https://www.monstr.pub/spec/roleplaying-vocabulary/#scopes.minLevel>
-
-{::comment}  + Stats  {:/comment}
 
 [`rp:Attribute`]:  <https://www.monstr.pub/spec/roleplaying-vocabulary/#stats.Attribute>
 [`rp:Quantified`]: <https://www.monstr.pub/spec/roleplaying-vocabulary/#stats.Quantified>
 [`rp:Stat`]:       <https://www.monstr.pub/spec/roleplaying-vocabulary/#stats.Stat>
 [`rp:stat`]:       <https://www.monstr.pub/spec/roleplaying-vocabulary/#stats.stat>
-
-{::comment}  + Techniques  {:/comment}
 
 [`rp:Learnable`]: <https://www.monstr.pub/spec/roleplaying-vocabulary/#techniques.Learnable>
 [`rp:Learned`]:   <https://www.monstr.pub/spec/roleplaying-vocabulary/#techniques.Learned>
@@ -360,27 +308,17 @@
 
 
 
-{::comment}  Mon Types  {:/comment}
-
-{::comment}  + Mon Activity Types  {:/comment}
-
 [`mon:Capture`]: <https://www.monstr.pub/spec/mon-vocabulary/#activities.Capture>
 [`mon:Search`]:  <https://www.monstr.pub/spec/mon-vocabulary/#activities.Search>
-
-{::comment}  + Mon Actor Types  {:/comment}
 
 [`mon:Mon`]:     <https://www.monstr.pub/spec/mon-vocabulary/#actors.Mon>
 [`mon:Route`]:   <https://www.monstr.pub/spec/mon-vocabulary/#actors.Route>
 [`mon:Trainer`]: <https://www.monstr.pub/spec/mon-vocabulary/#actors.Trainer>
 
-{::comment}  + Mon Object Types  {:/comment}
-
 [`mon:Item`]:     <https://www.monstr.pub/spec/mon-vocabulary/#objects.Item>
 [`mon:ItemSlot`]: <https://www.monstr.pub/spec/mon-vocabulary/#objects.ItemSlot>
 [`mon:Region`]:   <https://www.monstr.pub/spec/mon-vocabulary/#objects.Region>
 [`mon:Species`]:  <https://www.monstr.pub/spec/mon-vocabulary/#objects.Species>
-
-{::comment}  + Properties  {:/comment}
 
 [`mon:captureRate`]: <https://www.monstr.pub/spec/mon-vocabulary/#properties.captureRate>
 [`mon:dex`]:         <https://www.monstr.pub/spec/mon-vocabulary/#properties.dex>
@@ -388,11 +326,7 @@
 [`mon:routes`]:      <https://www.monstr.pub/spec/mon-vocabulary/#properties.routes>
 [`mon:supports`]:    <https://www.monstr.pub/spec/mon-vocabulary/#properties.supports>
 
-{::comment}  + MonStrPub Capsule Captures  {:/comment}
-
 [`mon:Capsule`]: <https://www.monstr.pub/spec/monstrpub-capsules/#Capsule
-
-{::comment}  + MonStrPub Stats  {:/comment}
 
 [`mon:Constitution`]: <https://www.monstr.pub/spec/monstrpub-stats/#Constitution
 [`mon:Defense`]:      <https://www.monstr.pub/spec/monstrpub-stats/#Defense
