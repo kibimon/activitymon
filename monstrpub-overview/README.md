@@ -68,8 +68,8 @@ The following specifications are **OPTIONAL** for conforming MonStrPub support:
 This section is non-normative.
 </div>
 
-#####  2018-05-16.
-{: id="changelog.2018-05-16"}
+#####  2018-05-15.
+{: id="changelog.2018-05-15"}
 
  +  Updated layout and formatting.
 

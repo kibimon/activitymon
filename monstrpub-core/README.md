@@ -109,7 +109,7 @@ To clone an ordinary object, a server **SHOULD** take the following steps:
 
     Servers **MAY** copy over additional properties which they do not recognize.
 
-####  3.1.2 Cloning [`rp:Class`]es
+####  3.1.2 Cloning `rp:Class`es
 {: id="actors-objects.cloning.classes"}
 
 To clone a [`rp:Class`], a server **SHOULD** take the following steps:
@@ -139,7 +139,7 @@ The following types all extend [`rp:Class`]:
 + [`rp:Technique`]
 </div>
 
-####  3.1.3  Cloning [`mon:Mon`] objects
+####  3.1.3  Cloning `mon:Mon` objects
 {: id="actors-objects.cloning.mon"}
 
 The steps for cloning a [`mon:Mon`] object are the same as the steps for cloning an ordinary object, with the caveat that all Actor-specific properties or collections, or links thereof, **MUST** be generated anew (and **MUST NOT** merely be copied over), and the resulting object **MUST** have a valid, non-null [`@id`].
@@ -156,20 +156,20 @@ However, servers **MAY** restrict [`mon:Mon`] authentication to only allow certa
 A server may allow users to generate [`rp:Use`] activities on behalf of their mon, but disallow them from [`as:Create`]ing posts.
 </aside>
 
-###  4.1 The [`as:Arrive`] Activity
+###  4.1 The `as:Arrive` Activity
 {: id="c2s.Arrive"}
 
 The [`as:Arrive`] activity **MAY** be used to signal arrival at a [`mon:Route`] via the [`as:location`] property.
 
 Upon receiving an [`as:Arrive`] activity in an **inbox** which includes or points to a [`mon:Route`] in its [`as:location`] property, servers **SHOULD** include a reference to this [`mon:Route`] in the [`as:cc`] or [`as:bcc`] property of the [`as:Arrive`], if one is not already present, prior to delivery.
 
-###  4.2 The [`as:Delete`] Activity
+###  4.2 The `as:Delete` Activity
 {: id="c2s.Delete"}
 
 Servers **SHOULD** replace deleted [`rp:Attribute`]s, [`rp:Class`]es, [`mon:Region`]s, [`mon:Route`]s, [`mon:Species`], and [`rp:Technique`]s with [`as:Tombstone`]s.
 Servers **SHOULD NOT** replace deleted [`mon:Item`]s with [`as:Tombstone`]s.
 
-###  4.3 The [`as:Follow`] Activity
+###  4.3 The `as:Follow` Activity
 {: id="c2s.Follow"}
 
 The [`as:Follow`] activity, in addition to its semantics under [ActivityPub], is used to travel to a [`mon:Route`].
@@ -184,18 +184,18 @@ If the [`as:object`] of this activity is a [`mon:Route`], then after receiving t
 The above steps **MUST NOT** be undone in the case of an [`as:Undo`].
 Servers **MAY** delay these steps until after an [`as:Accept`] activity is subsequently received with this [`as:Follow`] activity as its [`as:object`].
 
-###  4.4 The [`as:Undo`] Activity
+###  4.4 The `as:Undo` Activity
 {: id="c2s.Undo"}
 
 The [`mon:Capture`], [`mon:Search`], and [`rp:Use`] activities cannot be undone after an [`as:Accept`] activity has been received, and servers **MUST NOT** allow [`as:Undo`] activities for such objects.
 However, [`as:Undo`]s **MAY** be generated for these activities while they are still pending, to cancel the attempt.
 
-###  4.5 The [`mon:Capture`] Activity
+###  4.5 The `mon:Capture` Activity
 {: id="c2s.Capture"}
 
 The [`mon:Capture`] activity makes an attempt to capture a mon.
 
-###  4.6 The [`mon:Search`] Activity
+###  4.6 The `mon:Search` Activity
 {: id="c2s.Search"}
 
 The [`mon:Search`] activity makes an attempt to capture a mon.
@@ -204,7 +204,7 @@ The [`mon:Search`] activity makes an attempt to capture a mon.
 
 As with Client to Server interactions, MonStrPub both specifies additional Activities with special behaviour under client to server interactions, and specifies additional restrictions and processing behaviours for those defined by [ActivityPub].
 
-###  4.1 The [`as:Arrive`] Activity
+###  4.1 The `as:Arrive` Activity
 {: id="s2s.Arrive"}
 
 The [`as:Arrive`] activity is used to announce the arrival of its [`as:actor`] at an [`as:location`].
@@ -215,7 +215,7 @@ Upon receiving an [`as:Arrive`] activity in an **inbox**, servers **SHOULD** upd
 If the [`mon:Route`] specified by the [`as:location`] property is controlled by the server and included or linked in the [`as:Arrive`] by the [`as:to`] or [`as:cc`] properties, servers **MAY** generate an [`as:Announce`] activity with the specified [`mon:Route`] as its [`as:actor`] and the [`as:Arrive`] activity as its [`as:object`].
 Servers **SHOULD NOT** generate [`as:Announce`] activities for [`as:Arrive`]s which do not specify the [`mon:Route`] in the (public) [`as:to`] or [`as:cc`] properties.
 
-###  4.2 The [`as:Follow`] Activity
+###  4.2 The `as:Follow` Activity
 {: id="s2s.Follow"}
 
 Upon receiving an [`as:Follow`] activity in an **inbox**, servers **MUST** generate and deliver an [`as:Reject`] if both the [`as:actor`] and [`as:object`] are of type [`mon:Route`].
@@ -228,12 +228,12 @@ For example, a server might only [`as:Accept`] attempts to access a [`mon:Route`
 
 In the case of receiving an [`as:Accept`] referencing this [`as:Follow`] activity as its object, the server **SHOULD**, as a side effect, add the [`as:object`] to the [`as:location`] property of the [`as:actor`] if it is a [`mon:Route`] or a link thereof.
 
-###  4.3 The [`as:Undo`] Activity
+###  4.3 The `as:Undo` Activity
 {: id="s2s.Undo"}
 
 After receiving an [`as:Undo`] activity in an **inbox**, servers **SHOULD NOT** generate an [`as:Accept`] or [`as:Reject`] for the [`as:object`].
 
-###  4.4 The [`mon:Capture`] Activity
+###  4.4 The `mon:Capture` Activity
 {: id="s2s.Capture"}
 
 A [`mon:Capture`] activity attempts to capture a mon.
@@ -250,7 +250,7 @@ In the case of receiving an [`as:Accept`] referencing this [`mon:Capture`] as th
 
 3.  Add the resulting [`mon:Mon`] to the [`mon:mon`] collection of the [`as:actor`] of the [`mon:Capture`].
 
-###  4.4 The [`mon:Search`] Activity
+###  4.4 The `mon:Search` Activity
 {: id="s2s.Search"}
 
 The [`mon:Search`] activity makes an attempt to search a [`mon:Route`].
@@ -258,7 +258,7 @@ The [`mon:Search`] activity makes an attempt to search a [`mon:Route`].
 Upon receiving a [`mon:Search`] activity in an **inbox**, a server **SHOULD** generate either an [`as:Accept`] or [`as:Reject`] activity with the [`mon:Search`] as the [`as:object`] and deliver it to the [`as:actor`] of the [`as:Search`].
 An [`as:Accept`] **SHOULD** include an [`as:result`] property, whose value is the result of the search.
 
-###  4.5 The [`rp:Use`] Activity
+###  4.5 The `rp:Use` Activity
 {: id="s2s.Use"}
 
 The [`rp:Use`] activity makes an attempt to use an object.
@@ -280,8 +280,8 @@ In the case of an [`as:Reject`], the server **SHOULD NOT** apply such effects.
 This section is non-normative.
 </div>
 
-#####  2018-05-16.
-{: id="changelog.2018-05-16"}
+#####  2018-05-15.
+{: id="changelog.2018-05-15"}
 
  +  Updated layout and formatting.
 

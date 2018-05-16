@@ -527,8 +527,8 @@ When cloning [`mon:Mon`] or [`mon:Species`] from another server which does not s
 This section is non-normative.
 </div>
 
-#####  2018-05-16.
-{: id="changelog.2018-05-16"}
+#####  2018-05-15.
+{: id="changelog.2018-05-15"}
 
  +  Updated layout and formatting.
 

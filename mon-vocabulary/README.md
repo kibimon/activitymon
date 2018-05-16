@@ -530,8 +530,8 @@ Similarly, if a server uses types from other vocabularies which overlap with one
 This section is non-normative.
 </div>
 
-#####  2018-05-16.
-{: id="changelog.2018-05-16"}
+#####  2018-05-15.
+{: id="changelog.2018-05-15"}
 
  +  Updated layout and formatting.
 
